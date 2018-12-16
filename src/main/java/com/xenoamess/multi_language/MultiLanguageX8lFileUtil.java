@@ -9,12 +9,11 @@ import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
-
-public class DataCenter {
+public class MultiLanguageX8lFileUtil {
     public X8lTree dataTree;
 
 
-    public DataCenter() {
+    public MultiLanguageX8lFileUtil() {
         dataTree = new X8lTree(null);
         dataTree.root = new ContentNode(null);
         ContentNode nowNode = new ContentNode(dataTree.root);
@@ -22,7 +21,7 @@ public class DataCenter {
         nowNode.addAttribute("version=0.00");
     }
 
-    public DataCenter loadFromMerge(File file) {
+    public MultiLanguageX8lFileUtil loadFromMerge(File file) {
         X8lTree newX8lTree = null;
         newX8lTree = X8lTree.LoadFromFile(file);
         if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("merge")) {
@@ -33,11 +32,10 @@ public class DataCenter {
         } else {
             mergeFromMerge(newX8lTree);
         }
-
         return this;
     }
 
-    public DataCenter loadFromSplit(File file) {
+    public MultiLanguageX8lFileUtil loadFromSplit(File file) {
         X8lTree newX8lTree = null;
 
         newX8lTree = X8lTree.LoadFromFile(file);
@@ -348,14 +346,14 @@ public class DataCenter {
         return res;
     }
 
-    public DataCenter trim() {
+    public MultiLanguageX8lFileUtil trim() {
         if (this.dataTree != null) {
             this.dataTree.trim();
         }
         return this;
     }
 
-    public DataCenter format() {
+    public MultiLanguageX8lFileUtil format() {
         if (this.dataTree != null) {
             this.dataTree.format();
         }
@@ -393,7 +391,7 @@ public class DataCenter {
     /*
      * for user's convenience, we completeMissingLanguageNodes before we sortLanguageNodes
      */
-    public DataCenter sort(Comparator<String> comparator) {
+    public MultiLanguageX8lFileUtil sort(Comparator<String> comparator) {
         this.completeMissingLanguageNodes();
         ContentNode nowRoot1 = this.dataTree.root.getContentNodesFromChildren(1).get(0);
 
@@ -409,7 +407,7 @@ public class DataCenter {
         return this;
     }
 
-    public DataCenter sort() {
+    public MultiLanguageX8lFileUtil sort() {
         Comparator<String> comparator = new Comparator<String>() {
             public int compare(String s1, String s2) {
                 BigInteger int1 = null;
@@ -446,11 +444,9 @@ public class DataCenter {
     }
 
 
-    public DataCenter completeMissingLanguageNodes() {
+    public MultiLanguageX8lFileUtil completeMissingLanguageNodes() {
         ContentNode nowRoot1 = this.dataTree.root.getContentNodesFromChildren(1).get(0);
-
         Set<String> languageSet1 = new HashSet<String>();
-
         for (TreeNode treeNode1 : nowRoot1.children) {
             if (!(treeNode1 instanceof ContentNode)) {
                 continue;
@@ -499,5 +495,68 @@ public class DataCenter {
             }
         }
         return this;
+    }
+
+
+    public MultiLanguageStructure parse() {
+        this.completeMissingLanguageNodes().sort().trim();
+        MultiLanguageStructure res = new MultiLanguageStructure();
+
+        ContentNode nowRoot1 = this.dataTree.root.getContentNodesFromChildren(1).get(0);
+
+        for (TreeNode treeNode1 : nowRoot1.children) {
+            if (!(treeNode1 instanceof ContentNode)) {
+                continue;
+            }
+            ContentNode nowNode1 = (ContentNode) treeNode1;
+            if (nowNode1.attributesKeyList.isEmpty()) {
+                continue;
+            }
+            String textID = nowNode1.getName();
+            for (TreeNode treeNode11 : nowNode1.children) {
+                if (!(treeNode11 instanceof ContentNode)) {
+                    continue;
+                }
+                ContentNode nowNode11 = (ContentNode) treeNode11;
+                if (nowNode11.attributesKeyList.isEmpty()) {
+                    continue;
+                }
+                String languageName = nowNode11.getName();
+                for (TreeNode treeNode111 : nowNode11.children) {
+                    if (!(treeNode111 instanceof TextNode)) {
+                        continue;
+                    }
+                    String textValue = ((TextNode) treeNode111).textContent;
+                    res.putText(languageName, textID, textValue);
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+    public static void Generate(File file, int num) {
+        PrintStream out = null;
+        try {
+            out = new PrintStream(new FileOutputStream(file));
+            out.println("<merge version=1.1>");
+            for (int i = 0; i < num; i++) {
+                out.println("<" + i + ">");
+                out.println("<ch>><en>>");
+                out.println(">");
+            }
+            out.println(">");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
+
+        MultiLanguageX8lFileUtil multiLanguageUtil = new MultiLanguageX8lFileUtil();
+        multiLanguageUtil.loadFromMerge(file);
+        multiLanguageUtil.sort().trim().format().saveToMerge(file);
     }
 }
