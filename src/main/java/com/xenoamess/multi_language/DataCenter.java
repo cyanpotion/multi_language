@@ -4,7 +4,6 @@ import com.xenoamess.x8l.ContentNode;
 import com.xenoamess.x8l.TextNode;
 import com.xenoamess.x8l.TreeNode;
 import com.xenoamess.x8l.X8lTree;
-import org.w3c.dom.Text;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -25,13 +24,9 @@ public class DataCenter {
 
     public DataCenter loadFromMerge(File file) {
         X8lTree newX8lTree = null;
-        try {
-            newX8lTree = X8lTree.GetX8lTree(new FileReader(file));
-            if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("merge")) {
-                throw new WrongFileTypeException();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        newX8lTree = X8lTree.LoadFromFile(file);
+        if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("merge")) {
+            throw new WrongFileTypeException();
         }
         if (this.dataTree == null) {
             this.dataTree = newX8lTree;
@@ -44,14 +39,12 @@ public class DataCenter {
 
     public DataCenter loadFromSplit(File file) {
         X8lTree newX8lTree = null;
-        try {
-            newX8lTree = X8lTree.GetX8lTree(new FileReader(file));
-            if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("split")) {
-                throw new WrongFileTypeException();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+        newX8lTree = X8lTree.LoadFromFile(file);
+        if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("split")) {
+            throw new WrongFileTypeException();
         }
+
         if (this.dataTree == null) {
             this.dataTree = newX8lTree;
         } else {
@@ -276,14 +269,83 @@ public class DataCenter {
         }
     }
 
+
     public void saveToMerge(File file) {
-        try {
-            Writer writer = new FileWriter(file);
-            this.dataTree.output(writer);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        X8lTree.SaveToFile(file, this.dataTree);
+    }
+
+    public void saveToSplit(File folderFile) {
+        if (folderFile.exists() && !folderFile.isDirectory()) {
+            throw new WrongFileTypeException("saveToSplit need a folder as folderFile.");
+        } else if (!folderFile.exists()) {
+            folderFile.mkdirs();
         }
+        Map<String, X8lTree> x8lTreeMap = splitToSplit();
+
+        for (Map.Entry<String, X8lTree> entry : x8lTreeMap.entrySet()) {
+            X8lTree.SaveToFile(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() + ".x8l"), entry.getValue().trim().format());
+        }
+//        X8lTree.SaveToFile(file, this.dataTree);
+    }
+
+
+    public Map<String, X8lTree> splitToSplit() {
+        Map<String, X8lTree> res = new HashMap<String, X8lTree>();
+        X8lTree newX8lTree = X8lTree.LoadFromString(X8lTree.SaveToString(this.dataTree));
+
+        ContentNode nowRoot1 = newX8lTree.root.getContentNodesFromChildren(1).get(0);
+
+        for (TreeNode treeNode1 : nowRoot1.children) {
+            if (!(treeNode1 instanceof ContentNode)) {
+                continue;
+            }
+            ContentNode nowNode1 = (ContentNode) treeNode1;
+            if (nowNode1.attributesKeyList.isEmpty()) {
+                continue;
+            }
+
+            List<TreeNode> treeNodes = new ArrayList<TreeNode>();
+            for (TreeNode treeNode11 : nowNode1.children) {
+                if (!(treeNode11 instanceof ContentNode)) {
+                    treeNodes.add(treeNode11);
+                    continue;
+                }
+                ContentNode nowNode11 = (ContentNode) treeNode11;
+                if (nowNode11.attributesKeyList.isEmpty()) {
+                    treeNodes.add(treeNode11);
+                    continue;
+                }
+                String languageName = nowNode11.getName();
+                X8lTree x8lTree = null;
+                ContentNode nowRoot2 = null;
+                if (res.containsKey(languageName)) {
+                    x8lTree = res.get(languageName);
+                } else {
+                    x8lTree = new X8lTree(null);
+                    res.put(languageName, x8lTree);
+                    x8lTree.root = new ContentNode(null);
+                    nowRoot2 = new ContentNode(x8lTree.root);
+                    nowRoot2.addAttribute("split");
+                    nowRoot2.attributesKeyList.addAll(nowRoot1.attributesKeyList);
+                    nowRoot2.attributes.putAll(nowRoot1.attributes);
+                    nowRoot2.removeAttribute("merge");
+                    nowRoot2.addAttribute("language", languageName);
+                }
+                nowRoot2 = x8lTree.root.getContentNodesFromChildren(1).get(0);
+                ContentNode nowNode2 = new ContentNode(nowRoot2);
+                nowNode2.addAttribute(nowNode1.getName());
+                for (TreeNode treeNode : treeNodes) {
+                    treeNode.parent = null;
+                    treeNode.changeParentAndRegister(nowNode2);
+                }
+                for (TreeNode treeNode : nowNode11.children) {
+                    treeNode.parent = null;
+                    treeNode.changeParentAndRegister(nowNode2);
+                }
+                treeNodes = new ArrayList<TreeNode>();
+            }
+        }
+        return res;
     }
 
     public DataCenter trim() {
@@ -306,9 +368,9 @@ public class DataCenter {
             return;
         }
         Map<String, List<TreeNode>> contentNodeMap = new TreeMap<String, List<TreeNode>>(comparator);
-        List contentNodes = new ArrayList<TreeNode>();
+        List<TreeNode> treeNodes = new ArrayList<TreeNode>();
         for (TreeNode treeNode11 : nowNode1.children) {
-            contentNodes.add(treeNode11);
+            treeNodes.add(treeNode11);
             if (!(treeNode11 instanceof ContentNode)) {
                 continue;
             }
@@ -317,21 +379,21 @@ public class DataCenter {
                 continue;
             }
             String nowID = nowNode11.attributesKeyList.get(0);
-            contentNodeMap.put(nowID, contentNodes);
-            contentNodes = new ArrayList<ContentNode>();
+            contentNodeMap.put(nowID, treeNodes);
+            treeNodes = new ArrayList<TreeNode>();
         }
 
         nowNode1.children.clear();
         for (Map.Entry<String, List<TreeNode>> entry : contentNodeMap.entrySet()) {
             nowNode1.children.addAll(entry.getValue());
         }
-        nowNode1.children.addAll(contentNodes);
+        nowNode1.children.addAll(treeNodes);
     }
 
     /*
      * for user's convenience, we completeMissingLanguageNodes before we sortLanguageNodes
      */
-    public DataCenter sortNodes(Comparator<String> comparator) {
+    public DataCenter sort(Comparator<String> comparator) {
         this.completeMissingLanguageNodes();
         ContentNode nowRoot1 = this.dataTree.root.getContentNodesFromChildren(1).get(0);
 
@@ -347,7 +409,7 @@ public class DataCenter {
         return this;
     }
 
-    public DataCenter sortLanguageNodes() {
+    public DataCenter sort() {
         Comparator<String> comparator = new Comparator<String>() {
             public int compare(String s1, String s2) {
                 BigInteger int1 = null;
@@ -380,7 +442,7 @@ public class DataCenter {
             }
         };
 
-        return this.sortNodes(comparator);
+        return this.sort(comparator);
     }
 
 
