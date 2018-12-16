@@ -23,7 +23,7 @@ public class DataCenter {
         nowNode.addAttribute("version=0.00");
     }
 
-    public void loadFromMerge(File file) {
+    public DataCenter loadFromMerge(File file) {
         X8lTree newX8lTree = null;
         try {
             newX8lTree = X8lTree.GetX8lTree(new FileReader(file));
@@ -38,9 +38,11 @@ public class DataCenter {
         } else {
             mergeFromMerge(newX8lTree);
         }
+
+        return this;
     }
 
-    public void loadFromSplit(File file) {
+    public DataCenter loadFromSplit(File file) {
         X8lTree newX8lTree = null;
         try {
             newX8lTree = X8lTree.GetX8lTree(new FileReader(file));
@@ -55,10 +57,64 @@ public class DataCenter {
         } else {
             mergeFromSplit(newX8lTree);
         }
+        return this;
     }
 
     public void mergeFromSplit(X8lTree newX8lTree) {
+        ContentNode nowRoot1 = this.dataTree.root.getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot2 = newX8lTree.root.getContentNodesFromChildren(1).get(0);
+        String languageName = nowRoot2.attributes.get("language");
 
+        Map<String, ContentNode> contentNodes = new HashMap<String, ContentNode>();
+
+        for (TreeNode treeNode1 : nowRoot1.children) {
+            if (!(treeNode1 instanceof ContentNode)) {
+                continue;
+            }
+            ContentNode nowNode1 = (ContentNode) treeNode1;
+            if (nowNode1.attributesKeyList.isEmpty()) {
+                continue;
+            }
+            String nowID = nowNode1.attributesKeyList.get(0);
+            contentNodes.put(nowID, nowNode1);
+        }
+
+        for (TreeNode treeNode2 : nowRoot2.children) {
+            if (!(treeNode2 instanceof ContentNode)) {
+                treeNode2.parent = null;
+                treeNode2.changeParentAndRegister(nowRoot1);
+                continue;
+            }
+            ContentNode nowNode2 = (ContentNode) treeNode2;
+            if (nowNode2.attributesKeyList.isEmpty()) {
+                treeNode2.parent = null;
+                treeNode2.changeParentAndRegister(nowRoot1);
+                continue;
+            }
+            String nowID2 = nowNode2.attributesKeyList.get(0);
+            if (!contentNodes.containsKey(nowID2)) {
+                ContentNode contentNode2 = new ContentNode(nowRoot1);
+                contentNode2.addAttribute(nowID2);
+                treeNode2.parent = null;
+                ((ContentNode) treeNode2).removeAttribute(nowID2);
+                ((ContentNode) treeNode2).addAttribute(languageName);
+                treeNode2.changeParentAndRegister(contentNode2);
+            } else {
+                ContentNode nowNode1 = contentNodes.get(nowID2);
+                for (TreeNode treeNode11 : nowNode1.children) {
+                    if ((treeNode11 instanceof ContentNode) &&
+                            !((ContentNode) treeNode11).attributesKeyList.isEmpty() &&
+                            ((ContentNode) treeNode11).attributesKeyList.get(0).equals(languageName)) {
+                        treeNode11.destroy();
+                        break;
+                    }
+                }
+                treeNode2.parent = null;
+                treeNode2.changeParentAndRegister(nowNode1);
+                nowNode2.removeAttribute(nowID2);
+                nowNode2.addAttribute(languageName);
+            }
+        }
     }
 
 

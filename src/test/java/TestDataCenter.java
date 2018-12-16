@@ -12,6 +12,8 @@ public class TestDataCenter {
         dataCenter.format().saveToMerge(new File("demo/productFormat.x8l"));
         dataCenter.completeMissingLanguageNodes().format().saveToMerge(new File("demo/productCompleteMissingLanguageNodeFormat.x8l"));
         dataCenter.sortLanguageNodes().format().saveToMerge(new File("demo/productSortFormat.x8l"));
+        dataCenter.loadFromSplit(new File("demo/split_urzinko.x8l")).format().saveToMerge(new File("demo/productSortFormat2.x8l"));
+
         dataCenter.dataTree.show();
     }
 }

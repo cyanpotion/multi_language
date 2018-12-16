@@ -18,7 +18,7 @@
         <dependency>
             <groupId>com.github.XenoAmess</groupId>
             <artifactId>x8l</artifactId>
-            <version>0.32</version>
+            <version>0.33</version>
         </dependency>
     </dependencies>
 </project>
