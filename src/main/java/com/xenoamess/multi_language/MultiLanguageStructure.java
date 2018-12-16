@@ -19,7 +19,7 @@ public class MultiLanguageStructure {
     }
 
 
-    public boolean SetCurrentLanguage(String newCurrentLanguage) {
+    public boolean setCurrentLanguage(String newCurrentLanguage) {
         if (languageMap.containsKey(newCurrentLanguage)) {
             currentLanguage = newCurrentLanguage;
             return true;
