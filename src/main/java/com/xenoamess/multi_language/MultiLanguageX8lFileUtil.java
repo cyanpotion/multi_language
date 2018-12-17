@@ -5,7 +5,10 @@ import com.xenoamess.x8l.TextNode;
 import com.xenoamess.x8l.TreeNode;
 import com.xenoamess.x8l.X8lTree;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.math.BigInteger;
 import java.util.*;
 
