@@ -5,10 +5,7 @@ import com.xenoamess.x8l.TextNode;
 import com.xenoamess.x8l.TreeNode;
 import com.xenoamess.x8l.X8lTree;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.math.BigInteger;
 import java.util.*;
 
@@ -24,7 +21,7 @@ public class MultiLanguageX8lFileUtil {
         nowNode.addAttribute("version=0.00");
     }
 
-    public MultiLanguageX8lFileUtil loadFromMerge(File file) {
+    public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
         X8lTree newX8lTree = null;
         newX8lTree = X8lTree.LoadFromFile(file);
         if (!newX8lTree.root.getContentNodesFromChildren(1).get(0).attributes.containsKey("merge")) {
@@ -38,7 +35,7 @@ public class MultiLanguageX8lFileUtil {
         return this;
     }
 
-    public MultiLanguageX8lFileUtil loadFromSplit(File file) {
+    public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
         X8lTree newX8lTree = null;
 
         newX8lTree = X8lTree.LoadFromFile(file);
@@ -271,11 +268,11 @@ public class MultiLanguageX8lFileUtil {
     }
 
 
-    public void saveToMerge(File file) {
+    public void saveToMerge(File file) throws IOException {
         X8lTree.SaveToFile(file, this.dataTree);
     }
 
-    public void saveToSplit(File folderFile) {
+    public void saveToSplit(File folderFile) throws IOException {
         if (folderFile.exists() && !folderFile.isDirectory()) {
             throw new WrongFileTypeException("saveToSplit need a folder as folderFile.");
         } else if (!folderFile.exists()) {
@@ -538,7 +535,7 @@ public class MultiLanguageX8lFileUtil {
     }
 
 
-    public static void Generate(File file, int num) {
+    public static void Generate(File file, int num) throws IOException {
         PrintStream out = null;
         try {
             out = new PrintStream(new FileOutputStream(file));
