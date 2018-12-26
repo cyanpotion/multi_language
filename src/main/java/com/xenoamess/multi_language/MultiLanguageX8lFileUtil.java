@@ -96,7 +96,7 @@ public class MultiLanguageX8lFileUtil {
                     if ((treeNode11 instanceof ContentNode) &&
                             !((ContentNode) treeNode11).attributesKeyList.isEmpty() &&
                             ((ContentNode) treeNode11).getName().equals(languageName)) {
-                        treeNode11.destroy();
+                        treeNode11.close();
                         break;
                     }
                 }
