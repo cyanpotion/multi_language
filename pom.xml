@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.40</version>
+    <version>0.41</version>
 
     <repositories>
         <repository>
             <id>com.xenoamess</id>
-            <url>http://xenoamess.com:8081/service/rest/repository/browse/maven-releases/</url>
+            <url>http://xenoamess.com:8081/repository/maven-releases/</url>
         </repository>
     </repositories>
 
