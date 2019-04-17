@@ -17,7 +17,7 @@ public class Tester {
             multiLanguageUtil.saveToSplit(new File("demo"));
             multiLanguageUtil.completeMissingLanguageNodes().sort().trim().format().saveToMerge(new File("demo/finaloutput.x8l"));
             multiLanguageUtil.dataTree.show();
-            MultiLanguageX8lFileUtil.Generate(new File("demo/generate.x8l"), 1000);
+            MultiLanguageX8lFileUtil.generate(new File("demo/generate.x8l"), 1000);
             multiLanguageUtil.loadFromMerge(new File("demo/merge.x8l")).parse().show();
         } catch (Exception e) {
             e.printStackTrace();

@@ -3,41 +3,43 @@ package com.xenoamess.multi_language;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
+ * @author XenoAmess
+ * <p>
  * I will not restrict you from building this class's object for your own,
  * but it is strongly suggest that you first get a MultiLanguageX8lFileUtil, load a file,
  * and use MultiLanguageX8lFileUtil.parse to generate this MultiLanguageStructure object.
  */
 public class MultiLanguageStructure {
-    public static final String arabic = "arabic";
-    public static final String bulgarian = "bulgarian";
-    public static final String schinese = "schinese";
-    public static final String tchinese = "tchinese";
-    public static final String czech = "czech";
-    public static final String danish = "danish";
-    public static final String dutch = "dutch";
-    public static final String english = "english";
-    public static final String finnish = "finnish";
-    public static final String french = "french";
-    public static final String german = "german";
-    public static final String greek = "greek";
-    public static final String hungarian = "hungarian";
-    public static final String italian = "italian";
-    public static final String japanese = "japanese";
-    public static final String koreana = "koreana";
-    public static final String norwegian = "norwegian";
-    public static final String polish = "polish";
-    public static final String portuguese = "portuguese";
-    public static final String brazilian = "brazilian";
-    public static final String romanian = "romanian";
-    public static final String russian = "russian";
-    public static final String spanish = "spanish";
-    public static final String latam = "latam";
-    public static final String swedish = "swedish";
-    public static final String thai = "thai";
-    public static final String turkish = "turkish";
-    public static final String ukrainian = "ukrainian";
-    public static final String vietnamese = "vietnamese";
+    public static final String ARABIC = "arabic";
+    public static final String BULGARIAN = "bulgarian";
+    public static final String SCHINESE = "schinese";
+    public static final String TCHINESE = "tchinese";
+    public static final String CZECH = "czech";
+    public static final String DANISH = "danish";
+    public static final String DUTCH = "dutch";
+    public static final String ENGLISH = "english";
+    public static final String FINNISH = "finnish";
+    public static final String FRENCH = "french";
+    public static final String GERMAN = "german";
+    public static final String GREEK = "greek";
+    public static final String HUNGARIAN = "hungarian";
+    public static final String ITALIAN = "italian";
+    public static final String JAPANESE = "japanese";
+    public static final String KOREANA = "koreana";
+    public static final String NORWEGIAN = "norwegian";
+    public static final String POLISH = "polish";
+    public static final String PORTUGUESE = "portuguese";
+    public static final String BRAZILIAN = "brazilian";
+    public static final String ROMANIAN = "romanian";
+    public static final String RUSSIAN = "russian";
+    public static final String SPANISH = "spanish";
+    public static final String LATAM = "latam";
+    public static final String SWEDISH = "swedish";
+    public static final String THAI = "thai";
+    public static final String TURKISH = "turkish";
+    public static final String UKRAINIAN = "ukrainian";
+    public static final String VIETNAMESE = "vietnamese";
 
 
     public Map<String, SingleLanguageStructure> languageMap = new HashMap<String, SingleLanguageStructure>();
@@ -72,7 +74,7 @@ public class MultiLanguageStructure {
          * ex. we press open debuge setting and then press a key and all text change to raw code./
          * that is also very useful when you need community translations from players.
          */
-        if (languageName.equals("")) {
+        if ("".equals(languageName)) {
             return textID;
         }
 
@@ -103,13 +105,13 @@ public class MultiLanguageStructure {
 
     public boolean ifLanguageNeedWordWrap(String languageName) {
         switch (languageName) {
-            case schinese:
+            case SCHINESE:
                 return false;
-            case tchinese:
+            case TCHINESE:
                 return false;
-            case japanese:
+            case JAPANESE:
                 return false;
-            case koreana:
+            case KOREANA:
                 return false;
             default:
                 return true;
