@@ -42,7 +42,7 @@ public class MultiLanguageStructure {
     public static final String VIETNAMESE = "vietnamese";
 
 
-    public Map<String, SingleLanguageStructure> languageMap = new HashMap<String, SingleLanguageStructure>();
+    public Map<String, SingleLanguageStructure> languageMap = new HashMap<>();
     public String currentLanguage;
 
     public MultiLanguageStructure() {
