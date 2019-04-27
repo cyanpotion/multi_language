@@ -1,9 +1,10 @@
-import com.xenoamess.multi_language.MultiLanguageX8lFileUtil;
+package com.xenoamess.multi_language;
 
 import java.io.File;
 
 public class Tester {
     public static void main(String args[]) {
+        System.out.println(Version.VERSION);
         try {
             MultiLanguageX8lFileUtil multiLanguageUtil = new MultiLanguageX8lFileUtil();
             multiLanguageUtil.loadFromMerge(new File("demo/merge.x8l"));
