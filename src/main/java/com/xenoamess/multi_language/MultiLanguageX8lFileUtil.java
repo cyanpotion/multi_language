@@ -140,20 +140,19 @@ public class MultiLanguageX8lFileUtil {
 
             Map<String, TextNode> languageMap = new HashMap<>(nowRoot1.getChildren().size());
             for (AbstractTreeNode treeNode11 : contentNodes.get(nowID2).getChildren()) {
-                if (!(treeNode11 instanceof ContentNode)) {
-                    continue;
+                if (treeNode11 instanceof ContentNode) {
+                    ContentNode contentNode11 = (ContentNode) treeNode11;
+                    if (!contentNode11.getAttributesKeyList().isEmpty()) {
+                        if (!contentNode11.getChildren().isEmpty()) {
+                            AbstractTreeNode abstractTreeNode11 = contentNode11.getChildren().get(0);
+                            if (abstractTreeNode11 instanceof TextNode) {
+                                TextNode textNode11 = (TextNode) abstractTreeNode11;
+                                String key = contentNode11.getName();
+                                languageMap.put(key, textNode11);
+                            }
+                        }
+                    }
                 }
-                ContentNode contentNode11 = (ContentNode) treeNode11;
-                if (contentNode11.getAttributesKeyList().isEmpty()) {
-                    continue;
-                }
-
-                if (contentNode11.getChildren().isEmpty() || !(contentNode11.getChildren().get(0) instanceof AbstractTreeNode)) {
-                    continue;
-                }
-                TextNode textNode11 = (TextNode) contentNode11.getChildren().get(0);
-                String key = contentNode11.getName();
-                languageMap.put(key, textNode11);
             }
 
 
@@ -314,14 +313,13 @@ public class MultiLanguageX8lFileUtil {
         ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                this.sortSingleNode(comparator, nowNode1);
             }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            this.sortSingleNode(comparator, nowNode1);
         }
-        this.sortSingleNode(comparator, nowRoot1);
 
+        this.sortSingleNode(comparator, nowRoot1);
         return this;
     }
 
@@ -364,22 +362,18 @@ public class MultiLanguageX8lFileUtil {
         ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
         Set<String> languageSet1 = new HashSet<>();
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
-            }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            if (nowNode1.getAttributesKeyList().isEmpty()) {
-                continue;
-            }
-            for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
-                if (!(treeNode11 instanceof ContentNode)) {
-                    continue;
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                if (!nowNode1.getAttributesKeyList().isEmpty()) {
+                    for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
+                        if (treeNode11 instanceof ContentNode) {
+                            ContentNode contentNode11 = (ContentNode) treeNode11;
+                            if (!contentNode11.getAttributesKeyList().isEmpty()) {
+                                languageSet1.add(contentNode11.getName());
+                            }
+                        }
+                    }
                 }
-                ContentNode contentNode11 = (ContentNode) treeNode11;
-                if (contentNode11.getAttributesKeyList().isEmpty()) {
-                    continue;
-                }
-                languageSet1.add(contentNode11.getName());
             }
         }
 
