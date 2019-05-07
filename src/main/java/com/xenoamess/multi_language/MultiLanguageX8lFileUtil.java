@@ -416,29 +416,25 @@ public class MultiLanguageX8lFileUtil {
         ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
-            }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            if (nowNode1.getAttributesKeyList().isEmpty()) {
-                continue;
-            }
-            String textID = nowNode1.getName();
-            for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
-                if (!(treeNode11 instanceof ContentNode)) {
-                    continue;
-                }
-                ContentNode nowNode11 = (ContentNode) treeNode11;
-                if (nowNode11.getAttributesKeyList().isEmpty()) {
-                    continue;
-                }
-                String languageName = nowNode11.getName();
-                for (AbstractTreeNode treeNode111 : nowNode11.getChildren()) {
-                    if (!(treeNode111 instanceof TextNode)) {
-                        continue;
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                if (!nowNode1.getAttributesKeyList().isEmpty()) {
+                    String textID = nowNode1.getName();
+                    for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
+                        if (treeNode11 instanceof ContentNode) {
+                            ContentNode nowNode11 = (ContentNode) treeNode11;
+                            if (!nowNode11.getAttributesKeyList().isEmpty()) {
+                                String languageName = nowNode11.getName();
+                                for (AbstractTreeNode treeNode111 : nowNode11.getChildren()) {
+                                    if (treeNode111 instanceof TextNode) {
+                                        String textValue = ((TextNode) treeNode111).getTextContent();
+                                        res.putText(languageName, X8lTree.untranscode(textID),
+                                                X8lTree.untranscode(textValue));
+                                    }
+                                }
+                            }
+                        }
                     }
-                    String textValue = ((TextNode) treeNode111).getTextContent();
-                    res.putText(languageName, X8lTree.untranscode(textID), X8lTree.untranscode(textValue));
                 }
             }
         }
