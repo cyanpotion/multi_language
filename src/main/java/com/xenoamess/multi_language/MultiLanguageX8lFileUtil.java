@@ -44,14 +44,10 @@ public class MultiLanguageX8lFileUtil {
         return this;
     }
 
-    public void mergeFromSplit(X8lTree newX8lTree) {
-        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
-        ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
-        String languageName = nowRoot2.getAttributes().get(LANGUAGE);
 
-        Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot1.getChildren().size());
-
-        for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
+    public static Map<String, ContentNode> generateChildrenNameToChildrenNodeMap(ContentNode nowRoot) {
+        Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot.getChildren().size());
+        for (AbstractTreeNode treeNode1 : nowRoot.getChildren()) {
             if (treeNode1 instanceof ContentNode) {
                 ContentNode nowNode1 = (ContentNode) treeNode1;
                 if (!nowNode1.getAttributesKeyList().isEmpty()) {
@@ -60,6 +56,14 @@ public class MultiLanguageX8lFileUtil {
                 }
             }
         }
+        return contentNodes;
+    }
+
+    public void mergeFromSplit(X8lTree newX8lTree) {
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
+        String languageName = nowRoot2.getAttributes().get(LANGUAGE);
+        Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
 
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
             if (!(treeNode2 instanceof ContentNode)) {
@@ -113,16 +117,7 @@ public class MultiLanguageX8lFileUtil {
             }
         }
 
-        Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot1.getChildren().size());
-        for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (treeNode1 instanceof ContentNode) {
-                ContentNode nowNode1 = (ContentNode) treeNode1;
-                if (!nowNode1.getAttributesKeyList().isEmpty()) {
-                    String nowID = nowNode1.getName();
-                    contentNodes.put(nowID, nowNode1);
-                }
-            }
-        }
+        Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
 
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
             if (!(treeNode2 instanceof ContentNode)) {
