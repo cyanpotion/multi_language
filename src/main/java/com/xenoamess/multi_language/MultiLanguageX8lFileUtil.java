@@ -27,8 +27,7 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
-        X8lTree newX8lTree = null;
-        newX8lTree = X8lTree.loadFromFile(file);
+        X8lTree newX8lTree = X8lTree.loadFromFile(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(MERGE)) {
             throw new WrongFileTypeException();
         }
@@ -37,9 +36,7 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
-        X8lTree newX8lTree = null;
-
-        newX8lTree = X8lTree.loadFromFile(file);
+        X8lTree newX8lTree = X8lTree.loadFromFile(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(SPLIT)) {
             throw new WrongFileTypeException();
         }
@@ -55,51 +52,49 @@ public class MultiLanguageX8lFileUtil {
         Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot1.getChildren().size());
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                if (!nowNode1.getAttributesKeyList().isEmpty()) {
+                    String nowID = nowNode1.getName();
+                    contentNodes.put(nowID, nowNode1);
+                }
             }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            if (nowNode1.getAttributesKeyList().isEmpty()) {
-                continue;
-            }
-            String nowID = nowNode1.getName();
-            contentNodes.put(nowID, nowNode1);
         }
 
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
             if (!(treeNode2 instanceof ContentNode)) {
                 treeNode2.setParent(null);
                 treeNode2.changeParentAndRegister(nowRoot1);
-                continue;
-            }
-            ContentNode nowNode2 = (ContentNode) treeNode2;
-            if (nowNode2.getAttributesKeyList().isEmpty()) {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
-                continue;
-            }
-            String nowID2 = nowNode2.getName();
-            if (!contentNodes.containsKey(nowID2)) {
-                ContentNode contentNode2 = new ContentNode(nowRoot1);
-                contentNode2.addAttribute(nowID2);
-                treeNode2.setParent(null);
-                ((ContentNode) treeNode2).removeAttribute(nowID2);
-                ((ContentNode) treeNode2).addAttribute(languageName);
-                treeNode2.changeParentAndRegister(contentNode2);
             } else {
-                ContentNode nowNode1 = contentNodes.get(nowID2);
-                for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
-                    if ((treeNode11 instanceof ContentNode) &&
-                            !((ContentNode) treeNode11).getAttributesKeyList().isEmpty() &&
-                            ((ContentNode) treeNode11).getName().equals(languageName)) {
-                        treeNode11.close();
-                        break;
+                ContentNode nowNode2 = (ContentNode) treeNode2;
+                if (nowNode2.getAttributesKeyList().isEmpty()) {
+                    treeNode2.setParent(null);
+                    treeNode2.changeParentAndRegister(nowRoot1);
+                } else {
+                    String nowID2 = nowNode2.getName();
+                    if (!contentNodes.containsKey(nowID2)) {
+                        ContentNode contentNode2 = new ContentNode(nowRoot1);
+                        contentNode2.addAttribute(nowID2);
+                        treeNode2.setParent(null);
+                        ((ContentNode) treeNode2).removeAttribute(nowID2);
+                        ((ContentNode) treeNode2).addAttribute(languageName);
+                        treeNode2.changeParentAndRegister(contentNode2);
+                    } else {
+                        ContentNode nowNode1 = contentNodes.get(nowID2);
+                        for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
+                            if ((treeNode11 instanceof ContentNode) &&
+                                    !((ContentNode) treeNode11).getAttributesKeyList().isEmpty() &&
+                                    ((ContentNode) treeNode11).getName().equals(languageName)) {
+                                treeNode11.close();
+                                break;
+                            }
+                        }
+                        treeNode2.setParent(null);
+                        treeNode2.changeParentAndRegister(nowNode1);
+                        nowNode2.removeAttribute(nowID2);
+                        nowNode2.addAttribute(languageName);
                     }
                 }
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowNode1);
-                nowNode2.removeAttribute(nowID2);
-                nowNode2.addAttribute(languageName);
             }
         }
     }
@@ -119,17 +114,14 @@ public class MultiLanguageX8lFileUtil {
         }
 
         Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot1.getChildren().size());
-
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                if (!nowNode1.getAttributesKeyList().isEmpty()) {
+                    String nowID = nowNode1.getName();
+                    contentNodes.put(nowID, nowNode1);
+                }
             }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            if (nowNode1.getAttributesKeyList().isEmpty()) {
-                continue;
-            }
-            String nowID = nowNode1.getName();
-            contentNodes.put(nowID, nowNode1);
         }
 
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
@@ -216,7 +208,6 @@ public class MultiLanguageX8lFileUtil {
             X8lTree.saveToFile(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() + ".x8l"),
                     entry.getValue().trim().format());
         }
-//        X8lTree.saveToFile(file, this.dataTree);
     }
 
 
