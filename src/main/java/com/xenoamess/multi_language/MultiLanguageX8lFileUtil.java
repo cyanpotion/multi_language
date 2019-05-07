@@ -379,30 +379,25 @@ public class MultiLanguageX8lFileUtil {
         }
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
-            if (!(treeNode1 instanceof ContentNode)) {
-                continue;
-            }
-            ContentNode nowNode1 = (ContentNode) treeNode1;
-            if (nowNode1.getAttributesKeyList().isEmpty()) {
-                continue;
-            }
-            Set<String> languageSet2 = new HashSet<>(languageSet1);
+            if (treeNode1 instanceof ContentNode) {
+                ContentNode nowNode1 = (ContentNode) treeNode1;
+                if (!nowNode1.getAttributesKeyList().isEmpty()) {
+                    Set<String> languageSet2 = new HashSet<>(languageSet1);
+                    for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
+                        if (treeNode11 instanceof ContentNode) {
+                            ContentNode contentNode11 = (ContentNode) treeNode11;
+                            if (!contentNode11.getAttributesKeyList().isEmpty()) {
+                                languageSet2.remove(contentNode11.getName());
+                            }
+                        }
+                    }
 
-            for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
-                if (!(treeNode11 instanceof ContentNode)) {
-                    continue;
+                    for (String languageName : languageSet2) {
+                        ContentNode contentNode = new ContentNode(nowNode1);
+                        contentNode.addAttribute(languageName);
+                        new TextNode(contentNode, "");
+                    }
                 }
-                ContentNode contentNode11 = (ContentNode) treeNode11;
-                if (contentNode11.getAttributesKeyList().isEmpty()) {
-                    continue;
-                }
-                languageSet2.remove(contentNode11.getName());
-            }
-
-            for (String languageName : languageSet2) {
-                ContentNode contentNode = new ContentNode(nowNode1);
-                contentNode.addAttribute(languageName);
-                new TextNode(contentNode, "");
             }
         }
         return this;
