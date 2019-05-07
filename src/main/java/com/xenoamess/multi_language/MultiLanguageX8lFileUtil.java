@@ -328,19 +328,21 @@ public class MultiLanguageX8lFileUtil {
             BigInteger int1 = null;
             BigInteger int2 = null;
 
-            boolean flag1 = false;
-            boolean flag2 = false;
+            boolean flag1;
+            boolean flag2;
 
             try {
                 int1 = new BigInteger(s1);
                 flag1 = true;
             } catch (NumberFormatException e) {
+                flag1 = false;
             }
 
             try {
                 int2 = new BigInteger(s2);
                 flag2 = true;
             } catch (NumberFormatException e) {
+                flag2 = false;
             }
             if (flag1 && !flag2) {
                 return -1;
