@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.42.3</version>
+    <version>0.43.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.xenoamess</groupId>
             <artifactId>x8l</artifactId>
-            <version>0.41.6</version>
+            <version>0.42.0</version>
         </dependency>
     </dependencies>
 
@@ -93,7 +93,8 @@
                     <charset>UTF-8</charset>
                     <encoding>UTF-8</encoding>
                     <docencoding>UTF-8</docencoding>
-                    <additionalJOption>-J-Duser.language=en_US</additionalJOption>
+                    <additionalJOption>-J-Duser.language=en_US
+                    </additionalJOption>
                 </configuration>
 
                 <executions>
@@ -178,7 +179,8 @@
         <repository>
             <id>ossrh</id>
             <name>OSS Staging Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+            </url>
         </repository>
         <!--        <repository>-->
         <!--            <id>com.xenoamess</id>-->

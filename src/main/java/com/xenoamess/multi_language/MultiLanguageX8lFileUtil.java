@@ -229,7 +229,8 @@ public class MultiLanguageX8lFileUtil {
         Map<String, X8lTree> x8lTreeMap = splitToSplit();
 
         for (Map.Entry<String, X8lTree> entry : x8lTreeMap.entrySet()) {
-            X8lTree.saveToFile(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() + ".x8l"), entry.getValue().trim().format());
+            X8lTree.saveToFile(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() + ".x8l"),
+                    entry.getValue().trim().format());
         }
 //        X8lTree.saveToFile(file, this.dataTree);
     }

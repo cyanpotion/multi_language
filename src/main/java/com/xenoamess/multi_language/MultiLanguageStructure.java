@@ -42,16 +42,22 @@ public class MultiLanguageStructure {
     public static final String VIETNAMESE = "vietnamese";
 
 
-    public Map<String, SingleLanguageStructure> languageMap = new HashMap<>();
-    public String currentLanguage;
+    private final Map<String, SingleLanguageStructure> languageMap = new HashMap<>();
+    private String currentLanguage;
 
     public MultiLanguageStructure() {
-        currentLanguage = "en";
+        setCurrentLanguage("en");
     }
 
 
+    /**
+     * if the newCurrentLanguage not in languageMap, then do nothing and return false.
+     *
+     * @param newCurrentLanguage the new currentLanguage you want to set.
+     * @return true if succeed, false if fails.
+     */
     public boolean setCurrentLanguage(String newCurrentLanguage) {
-        if (languageMap.containsKey(newCurrentLanguage)) {
+        if (getLanguageMap().containsKey(newCurrentLanguage)) {
             currentLanguage = newCurrentLanguage;
             return true;
         } else {
@@ -60,11 +66,11 @@ public class MultiLanguageStructure {
     }
 
     public SingleLanguageStructure getSingleLanguageStructure(String languageName) {
-        return languageMap.get(languageName);
+        return getLanguageMap().get(languageName);
     }
 
     public String getText(String textID) {
-        return this.getText(this.currentLanguage, textID);
+        return this.getText(this.getCurrentLanguage(), textID);
     }
 
     public String getText(String languageName, String textID) {
@@ -78,7 +84,7 @@ public class MultiLanguageStructure {
             return textID;
         }
 
-        SingleLanguageStructure singleLanguageStructure = languageMap.get(languageName);
+        SingleLanguageStructure singleLanguageStructure = getLanguageMap().get(languageName);
         if (singleLanguageStructure != null) {
             return singleLanguageStructure.getText(textID);
         } else {
@@ -87,17 +93,17 @@ public class MultiLanguageStructure {
     }
 
     public void putText(String languageName, String textID, String textValue) {
-        SingleLanguageStructure singleLanguageStructure = languageMap.get(languageName);
+        SingleLanguageStructure singleLanguageStructure = getLanguageMap().get(languageName);
         if (singleLanguageStructure == null) {
             singleLanguageStructure = new SingleLanguageStructure();
-            languageMap.put(languageName, singleLanguageStructure);
+            getLanguageMap().put(languageName, singleLanguageStructure);
         }
         singleLanguageStructure.putText(textID, textValue);
     }
 
     public void show() {
-        System.out.println(this.languageMap);
-        for (Map.Entry<String, SingleLanguageStructure> entry : languageMap.entrySet()) {
+        System.out.println(this.getLanguageMap());
+        for (Map.Entry<String, SingleLanguageStructure> entry : getLanguageMap().entrySet()) {
             System.out.println(entry.getKey());
             System.out.println(entry.getValue());
         }
@@ -118,4 +124,11 @@ public class MultiLanguageStructure {
         }
     }
 
+    public Map<String, SingleLanguageStructure> getLanguageMap() {
+        return languageMap;
+    }
+
+    public String getCurrentLanguage() {
+        return currentLanguage;
+    }
 }
