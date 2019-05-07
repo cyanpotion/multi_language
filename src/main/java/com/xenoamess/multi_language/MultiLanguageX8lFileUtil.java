@@ -17,12 +17,11 @@ public class MultiLanguageX8lFileUtil {
     public static final String MERGE = "merge";
     public static final String SPLIT = "split";
     public static final String LANGUAGE = "language";
-    public X8lTree dataTree;
+    private final X8lTree dataTree = new X8lTree(null);
 
 
     public MultiLanguageX8lFileUtil() {
-        dataTree = new X8lTree(null);
-        ContentNode nowNode = new ContentNode(dataTree.getRoot());
+        ContentNode nowNode = new ContentNode(getDataTree().getRoot());
         nowNode.addAttribute(MERGE);
         nowNode.addAttribute("version=" + VERSION);
     }
@@ -33,11 +32,7 @@ public class MultiLanguageX8lFileUtil {
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(MERGE)) {
             throw new WrongFileTypeException();
         }
-        if (this.dataTree == null) {
-            this.dataTree = newX8lTree;
-        } else {
-            mergeFromMerge(newX8lTree);
-        }
+        mergeFromMerge(newX8lTree);
         return this;
     }
 
@@ -48,17 +43,12 @@ public class MultiLanguageX8lFileUtil {
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(SPLIT)) {
             throw new WrongFileTypeException();
         }
-
-        if (this.dataTree == null) {
-            this.dataTree = newX8lTree;
-        } else {
-            mergeFromSplit(newX8lTree);
-        }
+        mergeFromSplit(newX8lTree);
         return this;
     }
 
     public void mergeFromSplit(X8lTree newX8lTree) {
-        ContentNode nowRoot1 = this.dataTree.getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
         ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
         String languageName = nowRoot2.getAttributes().get(LANGUAGE);
 
@@ -116,12 +106,9 @@ public class MultiLanguageX8lFileUtil {
 
 
     public void mergeFromMerge(X8lTree newX8lTree) {
-        ContentNode nowRoot1 = this.dataTree.getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
         ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
         for (String key : nowRoot2.getAttributesKeyList()) {
-//            if (key.equals(LANGUAGE)) {
-//                continue;
-//            }
             String value = nowRoot2.getAttributes().get(key);
             if (nowRoot1.getAttributes().containsKey(key)) {
                 nowRoot1.getAttributes().put(key, value);
@@ -130,8 +117,6 @@ public class MultiLanguageX8lFileUtil {
                 nowRoot1.getAttributes().put(key, value);
             }
         }
-
-//        ContentNode contentNodes[] = new ContentNode[nowRoot1.getChildren().size()];
 
         Map<String, ContentNode> contentNodes = new HashMap<>(nowRoot1.getChildren().size());
 
@@ -216,7 +201,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public void saveToMerge(File file) throws IOException {
-        X8lTree.saveToFile(file, this.dataTree);
+        X8lTree.saveToFile(file, this.getDataTree());
     }
 
     public void saveToSplit(File folderFile) throws IOException {
@@ -236,7 +221,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public Map<String, X8lTree> splitToSplit() throws IOException {
-        X8lTree newX8lTree = X8lTree.loadFromString(X8lTree.saveToString(this.dataTree));
+        X8lTree newX8lTree = X8lTree.loadFromString(X8lTree.saveToString(this.getDataTree()));
         ContentNode nowRoot1 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
 
         Map<String, X8lTree> res = new HashMap<>(nowRoot1.getChildren().size());
@@ -294,15 +279,15 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil trim() {
-        if (this.dataTree != null) {
-            this.dataTree.trim();
+        if (this.getDataTree() != null) {
+            this.getDataTree().trim();
         }
         return this;
     }
 
     public MultiLanguageX8lFileUtil format() {
-        if (this.dataTree != null) {
-            this.dataTree.format();
+        if (this.getDataTree() != null) {
+            this.getDataTree().format();
         }
         return this;
     }
@@ -340,7 +325,7 @@ public class MultiLanguageX8lFileUtil {
      */
     public MultiLanguageX8lFileUtil sort(Comparator<String> comparator) {
         this.completeMissingLanguageNodes();
-        ContentNode nowRoot1 = this.dataTree.getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
             if (!(treeNode1 instanceof ContentNode)) {
@@ -390,7 +375,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public MultiLanguageX8lFileUtil completeMissingLanguageNodes() {
-        ContentNode nowRoot1 = this.dataTree.getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
         Set<String> languageSet1 = new HashSet<>();
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
             if (!(treeNode1 instanceof ContentNode)) {
@@ -447,7 +432,7 @@ public class MultiLanguageX8lFileUtil {
         this.completeMissingLanguageNodes().sort().trim();
         MultiLanguageStructure res = new MultiLanguageStructure();
 
-        ContentNode nowRoot1 = this.dataTree.getRoot().getContentNodesFromChildren(1).get(0);
+        ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
 
         for (AbstractTreeNode treeNode1 : nowRoot1.getChildren()) {
             if (!(treeNode1 instanceof ContentNode)) {
@@ -481,9 +466,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public static void generate(File file, int num) throws IOException {
-        PrintStream out = null;
-        try {
-            out = new PrintStream(new FileOutputStream(file));
+        try (PrintStream out = new PrintStream(new FileOutputStream(file));) {
             out.println("<merge version=" + VERSION + ">");
             for (int i = 0; i < num; i++) {
                 out.println("<" + i + ">");
@@ -493,14 +476,14 @@ public class MultiLanguageX8lFileUtil {
             out.println(">");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            if (out != null) {
-                out.close();
-            }
         }
 
         MultiLanguageX8lFileUtil multiLanguageUtil = new MultiLanguageX8lFileUtil();
         multiLanguageUtil.loadFromMerge(file);
         multiLanguageUtil.sort().trim().format().saveToMerge(file);
+    }
+
+    public X8lTree getDataTree() {
+        return dataTree;
     }
 }

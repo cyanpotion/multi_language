@@ -17,7 +17,7 @@ public class Tester {
             multiLanguageUtil.loadFromSplit(new File("demo/split_urzinko.x8l")).format().saveToMerge(new File("demo/productSortFormat2.x8l"));
             multiLanguageUtil.saveToSplit(new File("demo"));
             multiLanguageUtil.completeMissingLanguageNodes().sort().trim().format().saveToMerge(new File("demo/finaloutput.x8l"));
-            multiLanguageUtil.dataTree.show();
+            multiLanguageUtil.getDataTree().show();
             MultiLanguageX8lFileUtil.generate(new File("demo/generate.x8l"), 1000);
             multiLanguageUtil.loadFromMerge(new File("demo/merge.x8l")).parse().show();
         } catch (Exception e) {

@@ -11,7 +11,7 @@ import java.util.Map;
  * and use MultiLanguageX8lFileUtil.parse to generate this MultiLanguageStructure object.
  */
 public class SingleLanguageStructure {
-    public Map<String, String> textMap = new HashMap<String, String>();
+    private final Map<String, String> textMap = new HashMap<>();
 
     public String getText(String textID) {
         return textMap.get(textID);

@@ -31,14 +31,6 @@
         <url>${project.url}</url>
         <tag>${project.version}</tag>
     </scm>
-
-    <!--    <repositories>-->
-    <!--        <repository>-->
-    <!--            <id>com.xenoamess</id>-->
-    <!--            <url>http://xenoamess.com:8081/repository/maven-releases/</url>-->
-    <!--        </repository>-->
-    <!--    </repositories>-->
-
     <dependencies>
         <dependency>
             <groupId>com.xenoamess</groupId>
@@ -182,9 +174,5 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
             </url>
         </repository>
-        <!--        <repository>-->
-        <!--            <id>com.xenoamess</id>-->
-        <!--            <url>http://xenoamess.com:8081/repository/maven-releases/</url>-->
-        <!--        </repository>-->
     </distributionManagement>
 </project>
