@@ -109,12 +109,10 @@ public class MultiLanguageX8lFileUtil {
         ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
         for (String key : nowRoot2.getAttributesKeyList()) {
             String value = nowRoot2.getAttributes().get(key);
-            if (nowRoot1.getAttributes().containsKey(key)) {
-                nowRoot1.getAttributes().put(key, value);
-            } else {
+            if (!nowRoot1.getAttributes().containsKey(key)) {
                 nowRoot1.getAttributesKeyList().add(key);
-                nowRoot1.getAttributes().put(key, value);
             }
+            nowRoot1.getAttributes().put(key, value);
         }
 
         Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
@@ -125,7 +123,7 @@ public class MultiLanguageX8lFileUtil {
                 ContentNode nowNode2 = (ContentNode) treeNode2;
                 if (!nowNode2.getAttributesKeyList().isEmpty()) {
                     String nowID2 = nowNode2.getName();
-                    if (!contentNodes.containsKey(nowID2)) {
+                    if (contentNodes.containsKey(nowID2)) {
                         fail0 = false;
                         Map<String, TextNode> languageMap = new HashMap<>(nowRoot1.getChildren().size());
                         for (AbstractTreeNode treeNode11 : contentNodes.get(nowID2).getChildren()) {
@@ -152,8 +150,8 @@ public class MultiLanguageX8lFileUtil {
                                         TextNode textNode12 = (TextNode) abstractTreeNode12;
                                         String key = contentNode12.getName();
                                         if (languageMap.containsKey(key)) {
-                                            languageMap.get(key).setTextContent(textNode12.getTextContent());
                                             fail1 = false;
+                                            languageMap.get(key).setTextContent(textNode12.getTextContent());
                                         }
                                     }
                                 }
@@ -208,7 +206,7 @@ public class MultiLanguageX8lFileUtil {
                     for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
                         if (treeNode11 instanceof ContentNode) {
                             ContentNode nowNode11 = (ContentNode) treeNode11;
-                            if (nowNode11.getAttributesKeyList().isEmpty()) {
+                            if (!nowNode11.getAttributesKeyList().isEmpty()) {
                                 String languageName = nowNode11.getName();
                                 X8lTree x8lTree = null;
                                 ContentNode nowRoot2 = null;
@@ -250,16 +248,12 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil trim() {
-        if (this.getDataTree() != null) {
-            this.getDataTree().trim();
-        }
+        this.getDataTree().trim();
         return this;
     }
 
     public MultiLanguageX8lFileUtil format() {
-        if (this.getDataTree() != null) {
-            this.getDataTree().format();
-        }
+        this.getDataTree().format();
         return this;
     }
 
