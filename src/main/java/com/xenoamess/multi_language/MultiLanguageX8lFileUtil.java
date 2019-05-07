@@ -120,65 +120,63 @@ public class MultiLanguageX8lFileUtil {
         Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
 
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
-            if (!(treeNode2 instanceof ContentNode)) {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
-                continue;
-            }
-            ContentNode nowNode2 = (ContentNode) treeNode2;
-            if (nowNode2.getAttributesKeyList().isEmpty()) {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
-                continue;
-            }
-            String nowID2 = nowNode2.getName();
-            if (!contentNodes.containsKey(nowID2)) {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
-                continue;
-            }
-
-            Map<String, TextNode> languageMap = new HashMap<>(nowRoot1.getChildren().size());
-            for (AbstractTreeNode treeNode11 : contentNodes.get(nowID2).getChildren()) {
-                if (treeNode11 instanceof ContentNode) {
-                    ContentNode contentNode11 = (ContentNode) treeNode11;
-                    if (!contentNode11.getAttributesKeyList().isEmpty() && !contentNode11.getChildren().isEmpty()) {
-                        AbstractTreeNode abstractTreeNode11 = contentNode11.getChildren().get(0);
-                        if (abstractTreeNode11 instanceof TextNode) {
-                            TextNode textNode11 = (TextNode) abstractTreeNode11;
-                            String key = contentNode11.getName();
-                            languageMap.put(key, textNode11);
+            if (treeNode2 instanceof ContentNode) {
+                ContentNode nowNode2 = (ContentNode) treeNode2;
+                if (!nowNode2.getAttributesKeyList().isEmpty()) {
+                    String nowID2 = nowNode2.getName();
+                    if (!contentNodes.containsKey(nowID2)) {
+                        Map<String, TextNode> languageMap = new HashMap<>(nowRoot1.getChildren().size());
+                        for (AbstractTreeNode treeNode11 : contentNodes.get(nowID2).getChildren()) {
+                            if (treeNode11 instanceof ContentNode) {
+                                ContentNode contentNode11 = (ContentNode) treeNode11;
+                                if (!contentNode11.getAttributesKeyList().isEmpty() && !contentNode11.getChildren().isEmpty()) {
+                                    AbstractTreeNode abstractTreeNode11 = contentNode11.getChildren().get(0);
+                                    if (abstractTreeNode11 instanceof TextNode) {
+                                        TextNode textNode11 = (TextNode) abstractTreeNode11;
+                                        String key = contentNode11.getName();
+                                        languageMap.put(key, textNode11);
+                                    }
+                                }
+                            }
                         }
+
+                        for (AbstractTreeNode treeNode12 : nowNode2.getChildren()) {
+                            if (!(treeNode12 instanceof ContentNode)) {
+                                ContentNode contentNode12 = (ContentNode) treeNode12;
+                                if (contentNode12.getAttributesKeyList().isEmpty()) {
+                                    if (contentNode12.getChildren().isEmpty() || !(contentNode12.getChildren().get(0) instanceof AbstractTreeNode)) {
+                                        TextNode textNode12 = (TextNode) contentNode12.getChildren().get(0);
+                                        String key = contentNode12.getName();
+                                        if (languageMap.containsKey(key)) {
+                                            languageMap.get(key).setTextContent(textNode12.getTextContent());
+                                        } else {
+                                            treeNode12.setParent(null);
+                                            treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                                        }
+                                    } else {
+                                        treeNode12.setParent(null);
+                                        treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                                    }
+                                } else {
+                                    treeNode12.setParent(null);
+                                    treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                                }
+                            } else {
+                                treeNode12.setParent(null);
+                                treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                            }
+                        }
+                    } else {
+                        treeNode2.setParent(null);
+                        treeNode2.changeParentAndRegister(nowRoot1);
                     }
-                }
-            }
-
-
-            for (AbstractTreeNode treeNode12 : nowNode2.getChildren()) {
-                if (!(treeNode12 instanceof ContentNode)) {
-                    treeNode12.setParent(null);
-                    treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
-                    continue;
-                }
-                ContentNode contentNode12 = (ContentNode) treeNode12;
-                if (contentNode12.getAttributesKeyList().isEmpty()) {
-                    treeNode12.setParent(null);
-                    treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
-                    continue;
-                }
-                if (contentNode12.getChildren().isEmpty() || !(contentNode12.getChildren().get(0) instanceof AbstractTreeNode)) {
-                    treeNode12.setParent(null);
-                    treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
-                    continue;
-                }
-                TextNode textNode12 = (TextNode) contentNode12.getChildren().get(0);
-                String key = contentNode12.getName();
-                if (languageMap.containsKey(key)) {
-                    languageMap.get(key).setTextContent(textNode12.getTextContent());
                 } else {
-                    treeNode12.setParent(null);
-                    treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                    treeNode2.setParent(null);
+                    treeNode2.changeParentAndRegister(nowRoot1);
                 }
+            } else {
+                treeNode2.setParent(null);
+                treeNode2.changeParentAndRegister(nowRoot1);
             }
         }
     }
@@ -215,42 +213,42 @@ public class MultiLanguageX8lFileUtil {
                 if (!nowNode1.getAttributesKeyList().isEmpty()) {
                     List<AbstractTreeNode> treeNodes = new ArrayList<>();
                     for (AbstractTreeNode treeNode11 : nowNode1.getChildren()) {
-                        if (!(treeNode11 instanceof ContentNode)) {
-                            treeNodes.add(treeNode11);
-                            continue;
-                        }
-                        ContentNode nowNode11 = (ContentNode) treeNode11;
-                        if (nowNode11.getAttributesKeyList().isEmpty()) {
-                            treeNodes.add(treeNode11);
-                            continue;
-                        }
-                        String languageName = nowNode11.getName();
-                        X8lTree x8lTree = null;
-                        ContentNode nowRoot2 = null;
-                        if (res.containsKey(languageName)) {
-                            x8lTree = res.get(languageName);
+                        if (treeNode11 instanceof ContentNode) {
+                            ContentNode nowNode11 = (ContentNode) treeNode11;
+                            if (nowNode11.getAttributesKeyList().isEmpty()) {
+                                String languageName = nowNode11.getName();
+                                X8lTree x8lTree = null;
+                                ContentNode nowRoot2 = null;
+                                if (res.containsKey(languageName)) {
+                                    x8lTree = res.get(languageName);
+                                } else {
+                                    x8lTree = new X8lTree(null);
+                                    res.put(languageName, x8lTree);
+                                    nowRoot2 = new ContentNode(x8lTree.getRoot());
+                                    nowRoot2.addAttribute(SPLIT);
+                                    nowRoot2.getAttributesKeyList().addAll(nowRoot1.getAttributesKeyList());
+                                    nowRoot2.getAttributes().putAll(nowRoot1.getAttributes());
+                                    nowRoot2.removeAttribute(MERGE);
+                                    nowRoot2.addAttribute(LANGUAGE, languageName);
+                                }
+                                nowRoot2 = x8lTree.getRoot().getContentNodesFromChildren(1).get(0);
+                                ContentNode nowNode2 = new ContentNode(nowRoot2);
+                                nowNode2.addAttribute(nowNode1.getName());
+                                for (AbstractTreeNode treeNode : treeNodes) {
+                                    treeNode.setParent(null);
+                                    treeNode.changeParentAndRegister(nowNode2);
+                                }
+                                for (AbstractTreeNode treeNode : nowNode11.getChildren()) {
+                                    treeNode.setParent(null);
+                                    treeNode.changeParentAndRegister(nowNode2);
+                                }
+                                treeNodes = new ArrayList<>();
+                            } else {
+                                treeNodes.add(treeNode11);
+                            }
                         } else {
-                            x8lTree = new X8lTree(null);
-                            res.put(languageName, x8lTree);
-                            nowRoot2 = new ContentNode(x8lTree.getRoot());
-                            nowRoot2.addAttribute(SPLIT);
-                            nowRoot2.getAttributesKeyList().addAll(nowRoot1.getAttributesKeyList());
-                            nowRoot2.getAttributes().putAll(nowRoot1.getAttributes());
-                            nowRoot2.removeAttribute(MERGE);
-                            nowRoot2.addAttribute(LANGUAGE, languageName);
+                            treeNodes.add(treeNode11);
                         }
-                        nowRoot2 = x8lTree.getRoot().getContentNodesFromChildren(1).get(0);
-                        ContentNode nowNode2 = new ContentNode(nowRoot2);
-                        nowNode2.addAttribute(nowNode1.getName());
-                        for (AbstractTreeNode treeNode : treeNodes) {
-                            treeNode.setParent(null);
-                            treeNode.changeParentAndRegister(nowNode2);
-                        }
-                        for (AbstractTreeNode treeNode : nowNode11.getChildren()) {
-                            treeNode.setParent(null);
-                            treeNode.changeParentAndRegister(nowNode2);
-                        }
-                        treeNodes = new ArrayList<>();
                     }
                 }
             }
