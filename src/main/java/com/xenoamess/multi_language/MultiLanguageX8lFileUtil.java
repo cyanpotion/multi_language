@@ -142,14 +142,12 @@ public class MultiLanguageX8lFileUtil {
             for (AbstractTreeNode treeNode11 : contentNodes.get(nowID2).getChildren()) {
                 if (treeNode11 instanceof ContentNode) {
                     ContentNode contentNode11 = (ContentNode) treeNode11;
-                    if (!contentNode11.getAttributesKeyList().isEmpty()) {
-                        if (!contentNode11.getChildren().isEmpty()) {
-                            AbstractTreeNode abstractTreeNode11 = contentNode11.getChildren().get(0);
-                            if (abstractTreeNode11 instanceof TextNode) {
-                                TextNode textNode11 = (TextNode) abstractTreeNode11;
-                                String key = contentNode11.getName();
-                                languageMap.put(key, textNode11);
-                            }
+                    if (!contentNode11.getAttributesKeyList().isEmpty() && !contentNode11.getChildren().isEmpty()) {
+                        AbstractTreeNode abstractTreeNode11 = contentNode11.getChildren().get(0);
+                        if (abstractTreeNode11 instanceof TextNode) {
+                            TextNode textNode11 = (TextNode) abstractTreeNode11;
+                            String key = contentNode11.getName();
+                            languageMap.put(key, textNode11);
                         }
                     }
                 }
@@ -344,6 +342,7 @@ public class MultiLanguageX8lFileUtil {
             } catch (NumberFormatException e) {
                 flag2 = false;
             }
+
             if (flag1 && !flag2) {
                 return -1;
             }
