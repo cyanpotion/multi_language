@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.44.0-SNAPSHOT</version>
+    <version>0.43.2</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -35,7 +35,13 @@
         <dependency>
             <groupId>com.xenoamess</groupId>
             <artifactId>x8l</artifactId>
-            <version>0.42.0</version>
+            <version>0.42.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

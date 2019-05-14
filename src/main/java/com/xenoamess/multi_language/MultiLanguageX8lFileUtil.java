@@ -29,7 +29,7 @@ public class MultiLanguageX8lFileUtil {
     public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
         X8lTree newX8lTree = X8lTree.loadFromFile(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(MERGE)) {
-            throw new WrongFileTypeException();
+            throw new WrongFileTypeException("merge file does not contain merge attribute.");
         }
         mergeFromMerge(newX8lTree);
         return this;
@@ -38,7 +38,7 @@ public class MultiLanguageX8lFileUtil {
     public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
         X8lTree newX8lTree = X8lTree.loadFromFile(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(SPLIT)) {
-            throw new WrongFileTypeException();
+            throw new WrongFileTypeException("split file does not contain split attribute.");
         }
         mergeFromSplit(newX8lTree);
         return this;

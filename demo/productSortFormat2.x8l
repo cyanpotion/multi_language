@@ -1,15 +1,5 @@
 
 <merge version=1.1>
-    <<hellohahaha>
-    <0000>
-        <<hellohahaha>
-        <ch>>
-        <en>Hello?>
-        <fh>您>
-        <<hellohahaha2>
-        <fn>Hl>
-        <fz>>
-    >
     <0001>
         <<hellohahaha>
         <ch>谢谢!>
@@ -17,7 +7,6 @@
         <fh>谢>
         <fn>Thx>
         <<hellohahaha2>
-        <fz>>
         <urzinko>ulagra!>
     >
     <<hellohahaha>
@@ -28,15 +17,7 @@
         <fh>您>
         <<hellohahaha2>
         <fn>Hl>
-        <fz>>
         <urzinko>u-don?>
-    >
-    <aa>
-        <ch>>
-        <en>>
-        <fh>>
-        <fn>>
-        <fz>hugna>
     >
     <b>
         <urzinko>tag thag har!!>
