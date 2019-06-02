@@ -7,14 +7,20 @@ git:
   depth: false
 cache:
   directories:
-    - $HOME/.m2
+    - "$HOME/.m2"
 install: true
-env:
-  global:
 matrix:
   include:
     - os: linux
+      jdk: openjdk9
+    - os: linux
+      jdk: openjdk10
+    - os: linux
+      jdk: openjdk11
+    - os: linux
       jdk: openjdk12
+    - os: linux
+      jdk: openjdk-ea
 script: 
-  - ./mvnw clean package -Dmaven.javadoc.skip=false
-  - ./mvnw sonar:sonar -Dsonar.projectKey=cyanpotion_multi_language -Dsonar.organization=cyanpotion -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a279ba08f021523fa7fd0c2d8a2ebff8afde8501
+  - "./mvnw clean package -Dmaven.javadoc.skip=false"
+  - "./mvnw sonar:sonar -Dsonar.projectKey=cyanpotion_multi_language -Dsonar.organization=cyanpotion -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=a279ba08f021523fa7fd0c2d8a2ebff8afde8501"
