@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.43.3-SNAPSHOT</version>
+    <version>0.43.3</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -26,8 +26,8 @@
         </developer>
     </developers>
     <scm>
-        <connection>${project.url}</connection>
-        <developerConnection>${project.url}.git</developerConnection>
+        <connection>scm:git:${project.url}.git</connection>
+        <developerConnection>${scm.connection}</developerConnection>
         <url>${project.url}</url>
         <tag>${project.version}</tag>
     </scm>
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.xenoamess</groupId>
             <artifactId>x8l</artifactId>
-            <version>0.42.1</version>
+            <version>RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -44,13 +44,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>12</maven.compiler.source>
-        <maven.compiler.target>12</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8
+        </project.reporting.outputEncoding>
+        <java.version>8</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
-
     <build>
         <resources>
             <resource>
@@ -68,6 +69,7 @@
                 </includes>
             </resource>
         </resources>
+
 
         <plugins>
             <plugin>
@@ -88,11 +90,55 @@
                     <locale>en</locale>
                     <show>private</show>
                     <reportOutputDirectory>../javadocs</reportOutputDirectory>
-                    <charset>UTF-8</charset>
-                    <encoding>UTF-8</encoding>
-                    <docencoding>UTF-8</docencoding>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <docencoding>${project.reporting.outputEncoding}
+                    </docencoding>
                     <additionalJOption>-J-Duser.language=en_US
                     </additionalJOption>
+
+                    <tags>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>a</placement>
+                            <head>API Note:</head>
+                        </tag>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>a</placement>
+                            <head>Implementation Note:</head>
+                        </tag>
+                        <tag>
+                            <name>param</name>
+                        </tag>
+                        <tag>
+                            <name>return</name>
+                        </tag>
+                        <tag>
+                            <name>throws</name>
+                        </tag>
+                        <tag>
+                            <name>since</name>
+                        </tag>
+                        <tag>
+                            <name>version</name>
+                        </tag>
+                        <tag>
+                            <name>serialData</name>
+                        </tag>
+                        <tag>
+                            <name>see</name>
+                        </tag>
+                    </tags>
+
+                    <source>${maven.compiler.source}
+                    </source>
+                    <!--                    <javadocExecutable>${java.home}/bin/javadoc.exe-->
+                    <!--                    </javadocExecutable>-->
                 </configuration>
 
                 <executions>
@@ -110,6 +156,7 @@
                 <version>3.0.0-M1</version>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.0.1</version>
                 <executions>
@@ -126,29 +173,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M3</version>
             </plugin>
-            <!--Compiler-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>12</source>
-                    <target>12</target>
+                    <source>${maven.compiler.source}
+                    </source>
+                    <target>${maven.compiler.target}
+                    </target>
+                    <meminitial>128m</meminitial>
+                    <maxmem>512m</maxmem>
+                    <fork>true</fork>
+                    <compilerVersion>${java.version}</compilerVersion>
                 </configuration>
-            </plugin>
-            <!-- Source -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
             <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase -->
             <plugin>
@@ -167,6 +205,70 @@
             </plugin>
         </plugins>
     </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <locale>en</locale>
+                    <show>private</show>
+                    <reportOutputDirectory>../javadocs</reportOutputDirectory>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <docencoding>${project.reporting.outputEncoding}
+                    </docencoding>
+                    <additionalJOption>-J-Duser.language=en_US
+                    </additionalJOption>
+
+                    <tags>
+                        <tag>
+                            <name>apiNote</name>
+                            <placement>a</placement>
+                            <head>API Note:</head>
+                        </tag>
+                        <tag>
+                            <name>implSpec</name>
+                            <placement>a</placement>
+                            <head>Implementation Requirements:</head>
+                        </tag>
+                        <tag>
+                            <name>implNote</name>
+                            <placement>a</placement>
+                            <head>Implementation Note:</head>
+                        </tag>
+                        <tag>
+                            <name>param</name>
+                        </tag>
+                        <tag>
+                            <name>return</name>
+                        </tag>
+                        <tag>
+                            <name>throws</name>
+                        </tag>
+                        <tag>
+                            <name>since</name>
+                        </tag>
+                        <tag>
+                            <name>version</name>
+                        </tag>
+                        <tag>
+                            <name>serialData</name>
+                        </tag>
+                        <tag>
+                            <name>see</name>
+                        </tag>
+                    </tags>
+
+                    <source>${maven.compiler.source}
+                    </source>
+                    <!--                    <javadocExecutable>${java.home}/bin/javadoc.exe-->
+                    <!--                    </javadocExecutable>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
 
     <distributionManagement>
         <snapshotRepository>
@@ -180,5 +282,9 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
             </url>
         </repository>
+        <!--        <repository>-->
+        <!--            <id>com.xenoamess</id>-->
+        <!--            <url>http://xenoamess.com:8081/repository/maven-releases/</url>-->
+        <!--        </repository>-->
     </distributionManagement>
 </project>

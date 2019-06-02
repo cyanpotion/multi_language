@@ -17,7 +17,7 @@ public class MultiLanguageX8lFileUtil {
     public static final String MERGE = "merge";
     public static final String SPLIT = "split";
     public static final String LANGUAGE = "language";
-    private final X8lTree dataTree = new X8lTree(null);
+    private final X8lTree dataTree = new X8lTree();
 
 
     public MultiLanguageX8lFileUtil() {
@@ -213,7 +213,7 @@ public class MultiLanguageX8lFileUtil {
                                 if (res.containsKey(languageName)) {
                                     x8lTree = res.get(languageName);
                                 } else {
-                                    x8lTree = new X8lTree(null);
+                                    x8lTree = new X8lTree();
                                     res.put(languageName, x8lTree);
                                     nowRoot2 = new ContentNode(x8lTree.getRoot());
                                     nowRoot2.addAttribute(SPLIT);
@@ -418,7 +418,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public static void generate(File file, int num) throws IOException {
-        try (PrintStream out = new PrintStream(new FileOutputStream(file));) {
+        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
             out.println("<merge version=" + VERSION + ">");
             for (int i = 0; i < num; i++) {
                 out.println("<" + i + ">");
