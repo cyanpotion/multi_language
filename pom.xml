@@ -41,6 +41,31 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>ossrh</id>
+            <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <dependencies>
         <dependency>
             <groupId>com.xenoamess</groupId>
@@ -198,22 +223,7 @@
                     <compilerVersion>${java.version}</compilerVersion>
                 </configuration>
             </plugin>
-            <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-	    <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
