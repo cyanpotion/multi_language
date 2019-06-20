@@ -31,7 +31,7 @@ import java.io.File;
 public class MultiLanguageStructureTest {
     @Test
     public void test() {
-        System.out.println(Version.VERSION);
+        System.out.println(PackageVersion.VERSION);
         try {
             MultiLanguageX8lFileUtil multiLanguageUtil = new MultiLanguageX8lFileUtil();
             multiLanguageUtil.loadFromMerge(new File("demo/merge.x8l"));
