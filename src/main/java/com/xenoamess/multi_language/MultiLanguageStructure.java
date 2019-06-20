@@ -136,11 +136,8 @@ public class MultiLanguageStructure {
     public boolean ifLanguageNeedWordWrap(String languageName) {
         switch (languageName) {
             case SCHINESE:
-                return false;
             case TCHINESE:
-                return false;
             case JAPANESE:
-                return false;
             case KOREANA:
                 return false;
             default:
