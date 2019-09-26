@@ -70,7 +70,7 @@ public class MultiLanguageStructure {
     private String currentLanguage;
 
     public MultiLanguageStructure() {
-        setCurrentLanguage("en");
+        setCurrentLanguage(ENGLISH);
     }
 
 
