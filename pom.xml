@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.44.3</version>
+    <version>0.45.0</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -49,19 +49,19 @@
         <eclipse-collections.version>10.0.0.M3</eclipse-collections.version>
         <guava.version>28.1-jre</guava.version>
         <jackson.version>2.10.0.pr3</jackson.version>
-        <joml.version>1.9.17</joml.version>
+        <joml.version>1.9.19</joml.version>
         <log4j.version>2.12.1</log4j.version>
         <lwjgl.version>3.2.3</lwjgl.version>
-        <slf4j.version>2.0.0-alpha0</slf4j.version>
+        <slf4j.version>2.0.0-alpha1</slf4j.version>
         <steamworks4j.version>1.8.0</steamworks4j.version>
         <JXInput.version>1.0.0</JXInput.version>
         <!---->
         <!---->
         <!--home made libraries versions-->
-        <commonx.version>0.9.7</commonx.version>
+        <commonx.version>0.10.1</commonx.version>
         <multi_language.version>0.44.3</multi_language.version>
-        <x8l.version>0.48.2</x8l.version>
-        <SDL_GameControllerDB_Util.version>1.1.20190925</SDL_GameControllerDB_Util.version>
+        <x8l.version>0.49.0</x8l.version>
+        <SDL_GameControllerDB_Util.version>1.1.20191011</SDL_GameControllerDB_Util.version>
         <!---->
         <!---->
         <!--maven plugins versions-->
@@ -112,7 +112,8 @@
                                     <name>commons-collections4.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.commons</groupId>
+                                            <groupId>org.apache.commons
+                                            </groupId>
                                             <artifactId>commons-collections4
                                             </artifactId>
                                         </dependency>
@@ -131,8 +132,10 @@
                                     <name>commons-lang3.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.commons</groupId>
-                                            <artifactId>commons-lang3</artifactId>
+                                            <groupId>org.apache.commons
+                                            </groupId>
+                                            <artifactId>commons-lang3
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -160,7 +163,8 @@
                                         <dependency>
                                             <groupId>com.fasterxml.jackson.core
                                             </groupId>
-                                            <artifactId>jackson-core</artifactId>
+                                            <artifactId>jackson-core
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>com.fasterxml.jackson.core
@@ -169,7 +173,8 @@
                                             </artifactId>
                                         </dependency>
                                         <dependency>
-                                            <groupId>com.fasterxml.jackson.module
+                                            <groupId>
+                                                com.fasterxml.jackson.module
                                             </groupId>
                                             <artifactId>
                                                 jackson-module-parameter-names
@@ -243,7 +248,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-assimp</artifactId>
+                                            <artifactId>lwjgl-assimp
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -267,11 +273,13 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-jemalloc</artifactId>
+                                            <artifactId>lwjgl-jemalloc
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-libdivide</artifactId>
+                                            <artifactId>lwjgl-libdivide
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -291,7 +299,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-nanovg</artifactId>
+                                            <artifactId>lwjgl-nanovg
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -299,7 +308,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-nuklear</artifactId>
+                                            <artifactId>lwjgl-nuklear
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -307,23 +317,28 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-openal</artifactId>
+                                            <artifactId>lwjgl-openal
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-opencl</artifactId>
+                                            <artifactId>lwjgl-opencl
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-opengl</artifactId>
+                                            <artifactId>lwjgl-opengl
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-opengles</artifactId>
+                                            <artifactId>lwjgl-opengles
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-openvr</artifactId>
+                                            <artifactId>lwjgl-openvr
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -340,11 +355,13 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-remotery</artifactId>
+                                            <artifactId>lwjgl-remotery
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-rpmalloc</artifactId>
+                                            <artifactId>lwjgl-rpmalloc
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -356,15 +373,18 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tinyexr</artifactId>
+                                            <artifactId>lwjgl-tinyexr
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tinyfd</artifactId>
+                                            <artifactId>lwjgl-tinyfd
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tootle</artifactId>
+                                            <artifactId>lwjgl-tootle
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -372,11 +392,13 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-vulkan</artifactId>
+                                            <artifactId>lwjgl-vulkan
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-xxhash</artifactId>
+                                            <artifactId>lwjgl-xxhash
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -392,7 +414,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-assimp</artifactId>
+                                            <artifactId>lwjgl-assimp
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -404,11 +427,13 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-jemalloc</artifactId>
+                                            <artifactId>lwjgl-jemalloc
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-libdivide</artifactId>
+                                            <artifactId>lwjgl-libdivide
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -428,7 +453,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-nanovg</artifactId>
+                                            <artifactId>lwjgl-nanovg
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -436,23 +462,28 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-nuklear</artifactId>
+                                            <artifactId>lwjgl-nuklear
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-openal</artifactId>
+                                            <artifactId>lwjgl-openal
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-opengl</artifactId>
+                                            <artifactId>lwjgl-opengl
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-opengles</artifactId>
+                                            <artifactId>lwjgl-opengles
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-openvr</artifactId>
+                                            <artifactId>lwjgl-openvr
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -468,11 +499,13 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-remotery</artifactId>
+                                            <artifactId>lwjgl-remotery
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-rpmalloc</artifactId>
+                                            <artifactId>lwjgl-rpmalloc
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -484,15 +517,18 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tinyexr</artifactId>
+                                            <artifactId>lwjgl-tinyexr
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tinyfd</artifactId>
+                                            <artifactId>lwjgl-tinyfd
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-tootle</artifactId>
+                                            <artifactId>lwjgl-tootle
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -500,7 +536,8 @@
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
-                                            <artifactId>lwjgl-xxhash</artifactId>
+                                            <artifactId>lwjgl-xxhash
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.lwjgl</groupId>
@@ -517,7 +554,8 @@
                                     <dependencies>
                                         <dependency>
                                             <groupId>org.slf4j</groupId>
-                                            <artifactId>slf4j-log4j12</artifactId>
+                                            <artifactId>slf4j-log4j12
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.slf4j</groupId>
@@ -532,7 +570,8 @@
                                             <groupId>
                                                 com.code-disaster.steamworks4j
                                             </groupId>
-                                            <artifactId>steamworks4j</artifactId>
+                                            <artifactId>steamworks4j
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>
@@ -547,7 +586,8 @@
                                     <name>JXInput.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>com.github.StrikerX3</groupId>
+                                            <groupId>com.github.StrikerX3
+                                            </groupId>
                                             <artifactId>JXInput</artifactId>
                                         </dependency>
                                     </dependencies>
@@ -556,7 +596,8 @@
                                     <name>JXInput.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>com.github.StrikerX3</groupId>
+                                            <groupId>com.github.StrikerX3
+                                            </groupId>
                                             <artifactId>JXInput</artifactId>
                                         </dependency>
                                     </dependencies>
@@ -578,7 +619,8 @@
                                     <dependencies>
                                         <dependency>
                                             <groupId>com.xenoamess</groupId>
-                                            <artifactId>multi_language</artifactId>
+                                            <artifactId>multi_language
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -592,11 +634,14 @@
                                     </dependencies>
                                 </property>
                                 <property>
-                                    <name>SDL_GameControllerDB_Util.version</name>
+                                    <name>SDL_GameControllerDB_Util.version
+                                    </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>com.xenoamess.cyan_potion</groupId>
-                                            <artifactId>SDL_GameControllerDB_Util
+                                            <groupId>com.xenoamess.cyan_potion
+                                            </groupId>
+                                            <artifactId>
+                                                SDL_GameControllerDB_Util
                                             </artifactId>
                                         </dependency>
                                     </dependencies>
@@ -609,7 +654,8 @@
                                     <dependencies>
                                         <dependency>
                                             <groupId>org.junit.jupiter</groupId>
-                                            <artifactId>junit-jupiter-api</artifactId>
+                                            <artifactId>junit-jupiter-api
+                                            </artifactId>
                                         </dependency>
                                         <dependency>
                                             <groupId>org.junit.jupiter</groupId>
@@ -622,7 +668,8 @@
                                     <name>maven-compiler-plugin.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
                                             <artifactId>maven-compiler-plugin
                                             </artifactId>
                                         </dependency>
@@ -632,8 +679,10 @@
                                     <name>maven-deploy-plugin.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
-                                            <artifactId>maven-deploy-plugin</artifactId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
+                                            <artifactId>maven-deploy-plugin
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -641,7 +690,8 @@
                                     <name>maven-enforcer-plugin.version</name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
                                             <artifactId>maven-enforcer-plugin
                                             </artifactId>
                                         </dependency>
@@ -652,8 +702,10 @@
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
-                                            <artifactId>maven-gpg-plugin</artifactId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
+                                            <artifactId>maven-gpg-plugin
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -662,18 +714,21 @@
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
                                             <artifactId>maven-javadoc-plugin
                                             </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
                                 <property>
-                                    <name>maven-project-info-reports-plugin.version
+                                    <name>
+                                        maven-project-info-reports-plugin.version
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
                                             <artifactId>
                                                 maven-project-info-reports-plugin
                                             </artifactId>
@@ -685,8 +740,10 @@
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
-                                            <artifactId>maven-site-plugin</artifactId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
+                                            <artifactId>maven-site-plugin
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -695,8 +752,10 @@
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
-                                            <artifactId>maven-source-plugin</artifactId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
+                                            <artifactId>maven-source-plugin
+                                            </artifactId>
                                         </dependency>
                                     </dependencies>
                                 </property>
@@ -705,7 +764,8 @@
                                     </name>
                                     <dependencies>
                                         <dependency>
-                                            <groupId>org.apache.maven.plugins</groupId>
+                                            <groupId>org.apache.maven.plugins
+                                            </groupId>
                                             <artifactId>maven-surefire-plugin
                                             </artifactId>
                                         </dependency>

@@ -51,7 +51,7 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
-        X8lTree newX8lTree = X8lTree.loadFromFile(file);
+        X8lTree newX8lTree = X8lTree.load(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(MERGE)) {
             throw new WrongFileTypeException("merge file does not contain merge attribute.");
         }
@@ -60,7 +60,7 @@ public class MultiLanguageX8lFileUtil {
     }
 
     public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
-        X8lTree newX8lTree = X8lTree.loadFromFile(file);
+        X8lTree newX8lTree = X8lTree.load(file);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(SPLIT)) {
             throw new WrongFileTypeException("split file does not contain split attribute.");
         }
@@ -197,7 +197,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public void saveToMerge(File file) throws IOException {
-        X8lTree.saveToFile(file, this.getDataTree());
+        X8lTree.save(file, this.getDataTree());
     }
 
     public void saveToSplit(File folderFile) throws IOException {
@@ -209,7 +209,7 @@ public class MultiLanguageX8lFileUtil {
         Map<String, X8lTree> x8lTreeMap = splitToSplit();
 
         for (Map.Entry<String, X8lTree> entry : x8lTreeMap.entrySet()) {
-            X8lTree.saveToFile(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() +
+            X8lTree.save(new File(folderFile.getAbsolutePath() + "/output_split_" + entry.getKey() +
                             ".x8l"),
                     entry.getValue().trim().format());
         }
@@ -217,7 +217,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public Map<String, X8lTree> splitToSplit() throws IOException {
-        X8lTree newX8lTree = X8lTree.loadFromString(X8lTree.saveToString(this.getDataTree()));
+        X8lTree newX8lTree = X8lTree.load(X8lTree.save(this.getDataTree()));
         ContentNode nowRoot1 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
 
         Map<String, X8lTree> res = new HashMap<>(nowRoot1.getChildren().size());
