@@ -37,7 +37,6 @@ import java.util.*;
  * @author XenoAmess
  */
 public class MultiLanguageX8lFileUtil {
-    public static final String VERSION = "0.42.0";
     public static final String MERGE = "merge";
     public static final String SPLIT = "split";
     public static final String LANGUAGE = "language";
@@ -47,11 +46,21 @@ public class MultiLanguageX8lFileUtil {
     public MultiLanguageX8lFileUtil() {
         ContentNode nowNode = new ContentNode(getDataTree().getRoot());
         nowNode.addAttribute(MERGE);
-        nowNode.addAttribute("version=" + VERSION);
+        nowNode.addAttribute("version=" + PackageVersion.VERSION);
     }
 
     public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
-        X8lTree newX8lTree = X8lTree.load(file);
+        this.loadFromMerge(X8lTree.load(file));
+        return this;
+    }
+
+    public MultiLanguageX8lFileUtil loadFromMerge(InputStream inputStream) throws IOException {
+        this.loadFromMerge(X8lTree.load(inputStream));
+        return this;
+    }
+
+    public MultiLanguageX8lFileUtil loadFromMerge(X8lTree x8lTree) {
+        X8lTree newX8lTree = new X8lTree(x8lTree);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(MERGE)) {
             throw new WrongFileTypeException("merge file does not contain merge attribute.");
         }
@@ -59,8 +68,19 @@ public class MultiLanguageX8lFileUtil {
         return this;
     }
 
+
     public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
-        X8lTree newX8lTree = X8lTree.load(file);
+        this.loadFromSplit(X8lTree.load(file));
+        return this;
+    }
+
+    public MultiLanguageX8lFileUtil loadFromSplit(InputStream inputStream) throws IOException {
+        this.loadFromSplit(X8lTree.load(inputStream));
+        return this;
+    }
+
+    public MultiLanguageX8lFileUtil loadFromSplit(X8lTree x8lTree) throws IOException {
+        X8lTree newX8lTree = new X8lTree(x8lTree);
         if (!newX8lTree.getRoot().getContentNodesFromChildren(1).get(0).getAttributes().containsKey(SPLIT)) {
             throw new WrongFileTypeException("split file does not contain split attribute.");
         }
@@ -126,7 +146,6 @@ public class MultiLanguageX8lFileUtil {
             }
         }
     }
-
 
     public void mergeFromMerge(X8lTree newX8lTree) {
         ContentNode nowRoot1 = this.getDataTree().getRoot().getContentNodesFromChildren(1).get(0);
@@ -200,6 +219,10 @@ public class MultiLanguageX8lFileUtil {
         X8lTree.save(file, this.getDataTree());
     }
 
+    public void saveToMerge(OutputStream outputStream) throws IOException {
+        X8lTree.save(outputStream, this.getDataTree());
+    }
+
     public void saveToSplit(File folderFile) throws IOException {
         if (folderFile.exists() && !folderFile.isDirectory()) {
             throw new WrongFileTypeException("saveToSplit need a folder as folderFile.");
@@ -214,7 +237,6 @@ public class MultiLanguageX8lFileUtil {
                     entry.getValue().trim().format());
         }
     }
-
 
     public Map<String, X8lTree> splitToSplit() throws IOException {
         X8lTree newX8lTree = X8lTree.load(X8lTree.save(this.getDataTree()));
@@ -443,7 +465,7 @@ public class MultiLanguageX8lFileUtil {
 
     public static void generate(File file, int num) throws IOException {
         try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
-            out.println("<merge version=" + VERSION + ">");
+            out.println("<merge version=" + PackageVersion.VERSION + ">");
             for (int i = 0; i < num; i++) {
                 out.println("<" + i + ">");
                 out.println("<ch>><en>>");
