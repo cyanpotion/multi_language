@@ -28,6 +28,7 @@ import com.xenoamess.x8l.AbstractTreeNode;
 import com.xenoamess.x8l.ContentNode;
 import com.xenoamess.x8l.TextNode;
 import com.xenoamess.x8l.X8lTree;
+import org.apache.commons.vfs2.FileObject;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -54,6 +55,11 @@ public class MultiLanguageX8lFileUtil {
         return this;
     }
 
+    public MultiLanguageX8lFileUtil loadFromMerge(FileObject fileObject) throws IOException {
+        this.loadFromMerge(X8lTree.load(fileObject));
+        return this;
+    }
+
     public MultiLanguageX8lFileUtil loadFromMerge(InputStream inputStream) throws IOException {
         this.loadFromMerge(X8lTree.load(inputStream));
         return this;
@@ -71,6 +77,11 @@ public class MultiLanguageX8lFileUtil {
 
     public MultiLanguageX8lFileUtil loadFromSplit(File file) throws IOException {
         this.loadFromSplit(X8lTree.load(file));
+        return this;
+    }
+
+    public MultiLanguageX8lFileUtil loadFromSplit(FileObject fileObject) throws IOException {
+        this.loadFromSplit(X8lTree.load(fileObject));
         return this;
     }
 
@@ -219,6 +230,10 @@ public class MultiLanguageX8lFileUtil {
         X8lTree.save(file, this.getDataTree());
     }
 
+    public void saveToMerge(FileObject fileObject) throws IOException {
+        X8lTree.save(fileObject, this.getDataTree());
+    }
+
     public void saveToMerge(OutputStream outputStream) throws IOException {
         X8lTree.save(outputStream, this.getDataTree());
     }
@@ -238,7 +253,23 @@ public class MultiLanguageX8lFileUtil {
         }
     }
 
-    public Map<String, X8lTree> splitToSplit() throws IOException {
+    public void saveToSplit(FileObject folderFileObject) throws IOException {
+        if (folderFileObject.exists() && !folderFileObject.isFolder()) {
+            throw new WrongFileTypeException("saveToSplit need a folder as folderFile.");
+        } else if (!folderFileObject.exists()) {
+            folderFileObject.createFolder();
+        }
+        Map<String, X8lTree> x8lTreeMap = splitToSplit();
+
+        for (Map.Entry<String, X8lTree> entry : x8lTreeMap.entrySet()) {
+            FileObject childFileObject = folderFileObject.getChild("output_split_" + entry.getKey() +
+                    ".x8l");
+            X8lTree.save(childFileObject,
+                    entry.getValue().trim().format());
+        }
+    }
+
+    public Map<String, X8lTree> splitToSplit() {
         X8lTree newX8lTree = X8lTree.load(X8lTree.save(this.getDataTree()));
         ContentNode nowRoot1 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
 
