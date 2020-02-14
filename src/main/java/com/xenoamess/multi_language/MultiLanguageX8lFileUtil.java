@@ -480,8 +480,11 @@ public class MultiLanguageX8lFileUtil {
                                 for (AbstractTreeNode treeNode111 : nowNode11.getChildren()) {
                                     if (treeNode111 instanceof TextNode) {
                                         String textValue = ((TextNode) treeNode111).getTextContent();
-                                        res.putText(languageName, X8lTree.untranscode(textID),
-                                                X8lTree.untranscode(textValue));
+                                        res.putText(
+                                                languageName,
+                                                textID,
+                                                textValue
+                                        );
                                     }
                                 }
                             }
