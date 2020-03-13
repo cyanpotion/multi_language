@@ -47,7 +47,7 @@ public class MultiLanguageX8lFileUtil {
     public MultiLanguageX8lFileUtil() {
         ContentNode nowNode = new ContentNode(getDataTree().getRoot());
         nowNode.addAttribute(MERGE);
-        nowNode.addAttribute("version=" + PackageVersion.VERSION);
+        nowNode.addAttribute("version", PackageVersion.VERSION.toString());
     }
 
     public MultiLanguageX8lFileUtil loadFromMerge(File file) throws IOException {
@@ -163,10 +163,10 @@ public class MultiLanguageX8lFileUtil {
         ContentNode nowRoot2 = newX8lTree.getRoot().getContentNodesFromChildren(1).get(0);
         for (String key : nowRoot2.getAttributesKeyList()) {
             String value = nowRoot2.getAttributes().get(key);
-            if (!nowRoot1.getAttributes().containsKey(key)) {
-                nowRoot1.getAttributesKeyList().add(key);
-            }
-            nowRoot1.getAttributes().put(key, value);
+//            if (!nowRoot1.getAttributes().containsKey(key)) {
+//                nowRoot1.getAttributesKeyList().add(key);
+//            }
+            nowRoot1.addAttribute(key, value);
         }
 
         Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
@@ -294,8 +294,11 @@ public class MultiLanguageX8lFileUtil {
                                     res.put(languageName, x8lTree);
                                     nowRoot2 = new ContentNode(x8lTree.getRoot());
                                     nowRoot2.addAttribute(SPLIT);
-                                    nowRoot2.getAttributesKeyList().addAll(nowRoot1.getAttributesKeyList());
-                                    nowRoot2.getAttributes().putAll(nowRoot1.getAttributes());
+//                                    nowRoot2.getAttributesKeyList().addAll(nowRoot1.getAttributesKeyList());
+                                    for (Map.Entry<String, String> entry : nowRoot1.getAttributes().entrySet()) {
+                                        nowRoot2.addAttribute(entry.getKey(), entry.getValue());
+                                    }
+
                                     nowRoot2.removeAttribute(MERGE);
                                     nowRoot2.addAttribute(LANGUAGE, languageName);
                                 }
