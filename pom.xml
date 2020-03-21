@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.46.0</version>
+    <version>0.46.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -41,28 +41,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <!---->
         <!---->
-        <!--libraries versions-->
-        <commons-collections4.version>4.4</commons-collections4.version>
-        <commons-io.version>2.6</commons-io.version>
-        <commons-lang3.version>3.9</commons-lang3.version>
-        <dom4j.version>2.1.1</dom4j.version>
-        <eclipse-collections.version>10.0.0.M3</eclipse-collections.version>
-        <guava.version>28.2-jre</guava.version>
-        <jackson.version>2.10.2</jackson.version>
-        <joml.version>1.9.20</joml.version>
-        <log4j.version>2.13.0</log4j.version>
-        <lwjgl.version>3.2.3</lwjgl.version>
-        <slf4j.version>2.0.0-alpha1</slf4j.version>
-        <steamworks4j.version>1.8.0</steamworks4j.version>
-        <JXInput.version>1.0.0</JXInput.version>
-        <!---->
-        <!---->
         <!--home made libraries versions-->
         <commonx.version>0.10.10</commonx.version>
-        <multi_language.version>0.45.0</multi_language.version>
         <x8l.version>2.1.1</x8l.version>
-        <SDL_GameControllerDB_Util.version>1.1.20200115
-        </SDL_GameControllerDB_Util.version>
         <!---->
         <!---->
         <!--maven plugins versions-->
