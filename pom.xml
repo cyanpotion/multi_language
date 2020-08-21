@@ -42,7 +42,7 @@
         <!---->
         <!---->
         <!--home made libraries versions-->
-        <commonx.version>0.10.10</commonx.version>
+        <commonx.version>0.11.1</commonx.version>
         <x8l.version>2.1.1</x8l.version>
         <!---->
         <!---->
@@ -150,6 +150,19 @@
 
 
         <plugins>
+            <plugin>
+                <groupId>io.takari</groupId>
+                <artifactId>maven</artifactId>
+                <version>0.7.7</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wrapper</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
