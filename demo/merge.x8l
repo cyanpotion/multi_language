@@ -1,13 +1,12 @@
 <merge version=1.0>
+    <<comment for 0001>
     <0001>
         <en>Thanks!>
-        <<hellohahaha>
         <ch>谢谢!>
     >
-    <<hellohahaha>
+    <<comment for 0002>
     <0002>
         <en>Hello?>
-        <<hellohahaha>
         <ch>您好？>
     >
 >

@@ -28,11 +28,23 @@ import com.xenoamess.x8l.AbstractTreeNode;
 import com.xenoamess.x8l.ContentNode;
 import com.xenoamess.x8l.TextNode;
 import com.xenoamess.x8l.X8lTree;
-import org.apache.commons.vfs2.FileObject;
-
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.math.BigInteger;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import org.apache.commons.vfs2.FileObject;
 
 /**
  * @author XenoAmess
@@ -152,8 +164,7 @@ public class MultiLanguageX8lFileUtil {
                     treeNode2.changeParentAndRegister(nowRoot1);
                 }
             } else {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
+                appendButIfBothBeTextNodeThenMerge(treeNode2, nowRoot1);
             }
         }
     }
@@ -171,8 +182,8 @@ public class MultiLanguageX8lFileUtil {
 
         Map<String, ContentNode> contentNodes = generateChildrenNameToChildrenNodeMap(nowRoot1);
 
-        boolean fail0 = true;
         for (AbstractTreeNode treeNode2 : nowRoot2.getChildren()) {
+            boolean fail0 = true;
             if (treeNode2 instanceof ContentNode) {
                 ContentNode nowNode2 = (ContentNode) treeNode2;
                 if (!nowNode2.getAttributesKeyList().isEmpty()) {
@@ -211,16 +222,14 @@ public class MultiLanguageX8lFileUtil {
                                 }
                             }
                             if (fail1) {
-                                treeNode12.setParent(null);
-                                treeNode12.changeParentAndRegister(contentNodes.get(nowID2));
+                                appendButIfBothBeTextNodeThenMerge(treeNode12, contentNodes.get(nowID2));
                             }
                         }
                     }
                 }
             }
             if (fail0) {
-                treeNode2.setParent(null);
-                treeNode2.changeParentAndRegister(nowRoot1);
+                appendButIfBothBeTextNodeThenMerge(treeNode2, nowRoot1);
             }
         }
     }
@@ -306,12 +315,10 @@ public class MultiLanguageX8lFileUtil {
                                 ContentNode nowNode2 = new ContentNode(nowRoot2);
                                 nowNode2.addAttribute(nowNode1.getName());
                                 for (AbstractTreeNode treeNode : treeNodes) {
-                                    treeNode.setParent(null);
-                                    treeNode.changeParentAndRegister(nowNode2);
+                                    appendButIfBothBeTextNodeThenMerge(treeNode, nowNode2);
                                 }
                                 for (AbstractTreeNode treeNode : nowNode11.getChildren()) {
-                                    treeNode.setParent(null);
-                                    treeNode.changeParentAndRegister(nowNode2);
+                                    appendButIfBothBeTextNodeThenMerge(treeNode, nowNode2);
                                 }
                                 treeNodes = new ArrayList<>();
                             } else {
@@ -520,5 +527,26 @@ public class MultiLanguageX8lFileUtil {
 
     public X8lTree getDataTree() {
         return dataTree;
+    }
+
+    static void appendButIfBothBeTextNodeThenMerge(AbstractTreeNode newChild, ContentNode newParent) {
+        if (newChild instanceof TextNode) {
+            final List<AbstractTreeNode> nowChildren = newParent.getChildren();
+            if (!nowChildren.isEmpty()) {
+                final AbstractTreeNode nowLastChild =
+                        nowChildren.get(nowChildren.size() - 1);
+                if (nowLastChild instanceof TextNode) {
+                    final TextNode nowLastChildTextNode = (TextNode) nowLastChild;
+                    nowLastChildTextNode.setTextContent(
+                            nowLastChildTextNode.getTextContent()
+                                    + ((TextNode) newChild).getTextContent()
+                    );
+                    newChild.setParent(null);
+                    return;
+                }
+            }
+        }
+        newChild.setParent(null);
+        newChild.changeParentAndRegister(newParent);
     }
 }
