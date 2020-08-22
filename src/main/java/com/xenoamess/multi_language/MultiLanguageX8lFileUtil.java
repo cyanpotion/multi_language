@@ -508,7 +508,7 @@ public class MultiLanguageX8lFileUtil {
 
 
     public static void generate(File file, int num) throws IOException {
-        try (PrintStream out = new PrintStream(new FileOutputStream(file))) {
+        try (PrintStream out = new PrintStream(new FileOutputStream(file), true, "UTF-8")) {
             out.println("<merge version=" + PackageVersion.VERSION + ">");
             for (int i = 0; i < num; i++) {
                 out.println("<" + i + ">");
