@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.47.0</version>
+    <version>0.47.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -64,7 +64,8 @@
         <templating-maven-plugin.version>1.0.0</templating-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <animal-sniffer-maven-plugin.version>1.19</animal-sniffer-maven-plugin.version>
+        <animal-sniffer-maven-plugin.version>1.19
+        </animal-sniffer-maven-plugin.version>
     </properties>
 
     <profiles>
