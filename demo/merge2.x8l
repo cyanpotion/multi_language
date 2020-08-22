@@ -1,26 +1,23 @@
 <merge version=1.1>
+    <<comment for 0001>
     <0001>
         <fn>Thx>
         <fh>谢>
-        <<hellohahaha2>
     >
+    <<comment for 0002>
     <0002>
         <ch>>
-        <<hellohahaha2>
         <fn>Hl>
         <fh>您>
     >
-    <<hellohahaha>
+    <<comment for 0000>
     <0000>
         <en>Hello?>
-        <<hellohahaha>
         <ch>>
-
-
-        <<hellohahaha2>
         <fn>Hl>
         <fh>您>
     >
+    <<comment for aa>
     <aa>
         <fz>hugna>
     >

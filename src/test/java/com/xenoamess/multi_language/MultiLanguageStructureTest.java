@@ -24,9 +24,8 @@
 
 package com.xenoamess.multi_language;
 
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
+import org.junit.jupiter.api.Test;
 
 public class MultiLanguageStructureTest {
     @Test

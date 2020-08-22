@@ -1,28 +1,48 @@
 <merge version=1.1>
-    <0001>
-        <<hellohahaha>
-        <ch>谢谢!>
-        <en>Thanks!>
-        <fh>谢>
-        <fn>Thx>
-        <<hellohahaha2>
-        <urzinko>ulagra!>
-    >
-    <<hellohahaha>
-    <0002>
-        <<hellohahaha>
+    <<comment for 0001>
+    <<comment for 0002>
+    <<comment for 0000>
+    <0000>
         <ch>>
         <en>Hello?>
         <fh>您>
-        <<hellohahaha2>
         <fn>Hl>
+        <fz>>
+        <urzinko>>
+    >
+    <<comment for 0001>
+    <0001>
+        <ch>谢谢！>
+        <en>Thanks!>
+        <fh>谢>
+        <fn>Thx>
+        <fz>>
+        <urzinko>ulagra!>
+    >
+    <<comment for 0002>
+    <0002>
+        <ch>>
+        <en>Hello?>
+        <fh>您>
+        <fn>Hl>
+        <fz>>
         <urzinko>u-don?>
+    >
+    <<comment for aa>
+    <aa>
+        <ch>>
+        <en>>
+        <fh>>
+        <fn>>
+        <fz>hugna>
+        <urzinko>>
     >
     <b>
         <ch>>
         <en>>
         <fh>>
         <fn>>
+        <fz>>
         <urzinko>tag thag har!!>
     >
 >
