@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.46.1-SNAPSHOT</version>
+    <version>0.47.0</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -45,7 +45,7 @@
         <!---->
         <!--home made libraries versions-->
         <commonx.version>0.11.1</commonx.version>
-        <x8l.version>2.2.9</x8l.version>
+        <x8l.version>2.2.10</x8l.version>
         <!---->
         <!---->
         <!--maven plugins versions-->
