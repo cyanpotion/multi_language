@@ -43,8 +43,9 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <!---->
         <!---->
+        <commons-vfs2.version>2.6.0</commons-vfs2.version>
         <!--home made libraries versions-->
-        <commonx.version>0.11.1</commonx.version>
+        <commonx.version>0.11.2</commonx.version>
         <x8l.version>2.2.10</x8l.version>
         <!---->
         <!---->
@@ -123,16 +124,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.xenoamess</groupId>
-            <artifactId>x8l</artifactId>
-            <version>${x8l.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xenoamess</groupId>
-            <artifactId>commonx</artifactId>
-            <version>${commonx.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-jupiter.version}</version>
@@ -143,6 +134,23 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>${commons-vfs2.version}</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.xenoamess</groupId>
+            <artifactId>x8l</artifactId>
+            <version>${x8l.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xenoamess</groupId>
+            <artifactId>commonx</artifactId>
+            <version>${commonx.version}</version>
         </dependency>
     </dependencies>
 
