@@ -46,7 +46,7 @@
         <commons-vfs2.version>2.7.0</commons-vfs2.version>
         <!--home made libraries versions-->
         <commonx.version>0.12.1</commonx.version>
-        <x8l.version>2.3.4</x8l.version>
+        <x8l.version>2.3.5</x8l.version>
         <!---->
         <!---->
         <!--maven plugins versions-->
