@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.xenoamess</groupId>
     <artifactId>multi_language</artifactId>
-    <version>0.47.1</version>
+    <version>0.47.2</version>
     <packaging>jar</packaging>
     <name>${project.artifactId}</name>
     <description>multi-language solution for multi-language java game scenario.
@@ -43,19 +43,20 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <!---->
         <!---->
+        <commons-vfs2.version>2.7.0</commons-vfs2.version>
         <!--home made libraries versions-->
-        <commonx.version>0.11.1</commonx.version>
-        <x8l.version>2.2.10</x8l.version>
+        <commonx.version>0.12.1</commonx.version>
+        <x8l.version>2.3.5</x8l.version>
         <!---->
         <!---->
         <!--maven plugins versions-->
-        <junit-jupiter.version>5.7.0-RC1</junit-jupiter.version>
+        <junit-jupiter.version>5.8.0-M1</junit-jupiter.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.0</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <maven-site-plugin.version>3.9.1</maven-site-plugin.version>
         <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
@@ -63,8 +64,7 @@
         <templating-maven-plugin.version>1.0.0</templating-maven-plugin.version>
         <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
-        <animal-sniffer-maven-plugin.version>1.19
-        </animal-sniffer-maven-plugin.version>
+        <animal-sniffer-maven-plugin.version>1.20</animal-sniffer-maven-plugin.version>
     </properties>
 
     <profiles>
@@ -123,16 +123,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.xenoamess</groupId>
-            <artifactId>x8l</artifactId>
-            <version>${x8l.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.xenoamess</groupId>
-            <artifactId>commonx</artifactId>
-            <version>${commonx.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>${junit-jupiter.version}</version>
@@ -143,6 +133,23 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit-jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>${commons-vfs2.version}</version>
+            <optional>true</optional>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.xenoamess</groupId>
+            <artifactId>x8l</artifactId>
+            <version>${x8l.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.xenoamess</groupId>
+            <artifactId>commonx</artifactId>
+            <version>${commonx.version}</version>
         </dependency>
     </dependencies>
 
@@ -280,6 +287,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
