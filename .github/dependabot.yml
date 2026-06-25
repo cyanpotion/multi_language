@@ -26,7 +26,6 @@ updates:
     open-pull-requests-limit: 10
     commit-message:
       prefix: "build(deps)"
-      prefix-development: "build(deps-dev)"
       include: "scope"
     labels:
       - "dependencies"
